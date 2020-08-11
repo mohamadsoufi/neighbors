@@ -1,10 +1,8 @@
 import React from "react";
-// import Register from "./Register";
-import { HashRouter, Route } from "react-router-dom";
-import{ Register} from "./components/Register";
-import{ Login} from "./components/Login";
+import { HashRouter, Route, BrowserRouter } from "react-router-dom";
+let isLoggedIn = location.pathname != "/welcome";
+import { LoginRegister } from "./components/LoginRegister";
 // import ResetPassword from "./ResetPassword";
-
 
 export default class Welcome extends React.Component {
     constructor(props) {
@@ -14,19 +12,16 @@ export default class Welcome extends React.Component {
 
     render() {
         return (
-            <HashRouter >
+            <HashRouter>
                 <header>
-
-                <img src="/logo.png"/>
+                    <img src="/logo.png" />
                 </header>
-                <div>
-
-                {/* <img className="header-img" src="/header7.jpg"/> */}
-                </div>
+                <div></div>
                 <div>Hello from welcome page!</div>
 
-                <Route exact path="/" component={Register} />
-                <Route path="/login" component={Login} />
+                <Route exact path="/login" component={LoginRegister} />
+                <Route exact path="/register" component={LoginRegister} />
+
                 {/* <Route path="/reset-password" component={ResetPassword} /> */}
             </HashRouter>
         );
