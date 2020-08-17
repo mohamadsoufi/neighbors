@@ -3,23 +3,38 @@ import { Link } from "react-router-dom";
 import { useStatefulFields } from "../hooks/useStatefulFields";
 import { useAuthSubmit } from "../hooks/useAuthSubmit";
 import { useState } from "react";
+//
 
 export function LoginRegister() {
     const [values, handleChange] = useStatefulFields();
-    const [error, submit] = useAuthSubmit("/register", values);
+    const [url, setUrl] = useState();
     const [hasAccount, setHasAccount] = useState(false);
+    const [error, submit] = useAuthSubmit(url, values);
     useEffect(() => {
-        if (location.hash.slice(1) == "#/register") {
+        if (location.hash.slice(1) == "/register") {
             setHasAccount(false);
+            setUrl("/register");
         } else if (location.hash.slice(1) == "/login") {
             setHasAccount(true);
+            setUrl("/login");
         }
     }, [hasAccount]);
 
-    console.log("hasAccount :", hasAccount);
-    console.log("location.hash :", location.hash.slice(1));
+    const renderSubmitButton = () =>
+        hasAccount ? (
+            <div className="login-register-btn-link">
+                <button onClick={submit}>LOG IN</button>
+                <Link to="/register">REGISTER</Link>
+            </div>
+        ) : (
+            <div className="login-register-btn-link">
+                <button onClick={submit}>REGISTER</button>
+                <Link to="/login">LOGIN</Link>
+            </div>
+        );
+
     return (
-        <div>
+        <div className="login-register-container">
             {!!error && <div>Oops! Something went wrong.</div>}
             {!hasAccount && (
                 <div>
@@ -43,20 +58,7 @@ export function LoginRegister() {
                 placeholder="password"
                 type="password"
             />
-
-            {!hasAccount && (
-                <div>
-                    <button onClick={submit}>REGISTER</button>
-                    <Link to="/login">login</Link>
-                </div>
-            )}
-
-            {!!hasAccount && (
-                <div>
-                    <button onClick={submit}>LOG IN</button>
-                    <Link to="/register">register</Link>
-                </div>
-            )}
+            {renderSubmitButton()}
         </div>
     );
 }

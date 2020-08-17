@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+body {
+    font-family: "Nunito", sans-serif;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    height: 24vh;
+    overflow: hidden;
+    background: url(/header3.jpg) no-repeat bottom;
+    background-size: cover;
+}
+
+.login-register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.login-register-container input {
+    margin: 10px 20px;
+    width: 300px;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-left: 15px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.781);
+    -moz-box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
+    box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
+}
+
+.login-register-btn-link {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-register-btn-link button,
+.login-register-btn-link a {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.logo {
+    height: 250px;
+    width: 300px;
+}
+.logo-p {
+    font-family: "Luckiest Guy", cursive;
+    font-size: 30px;
+    color: rgb(68, 39, 39);
+    margin: 30px;
+}
+
+.log-container a {
+    text-decoration: none;
+}
+
+/* .header-img{
+    width: 100%;
+    min-height: 400px;
+    height: 450px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    object-position: 0 110%;
+    z-index: -1;
+} */
+button {
+    color: white;
+    background-color: rgb(5, 5, 173);
+    margin: 0 auto;
+    padding: 0 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    height: 30px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rgba(0, 0, 0, 0.705);
+    background-color: rgba(179, 177, 177, 0.144);
+    border-radius: 20px;
+}
+
+@media (max-width: 1024px) {
+    header {
+        height: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 200px;
+    }
+}
