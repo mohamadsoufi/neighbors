@@ -140,6 +140,13 @@ app.get("/user", (req, res) => {
     });
 });
 
+app.post("/update-bio", function (req, res) {
+    db.updateBio(req.body.text, req.session.userId).then(({ rows }) => {
+        let { bio, id } = rows[0];
+        res.json({ bio, id, success: true });
+    });
+});
+
 app.get("/logout", function (req, res) {
     req.session.userId = null;
     res.redirect("/login");

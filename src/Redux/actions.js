@@ -12,14 +12,9 @@ export async function getUser() {
     }
 }
 
-export async function acceptFriendRequest(text, id) {
+export async function updateBio(bio) {
     try {
-        let info = {
-            text,
-            id,
-        };
-
-        const { data } = await axios.post("/check-friendship", info);
+        const { data } = await axios.post("/check-friendship", bio);
 
         return {
             type: "ACCEPT_FRIEND_REQUEST",
