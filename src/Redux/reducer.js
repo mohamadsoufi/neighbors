@@ -6,5 +6,12 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "UPDATE_OFFER") {
+        state = {
+            ...state,
+            user: action.user,
+        };
+    }
+
     return state;
 }

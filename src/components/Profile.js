@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import ProfilePic from "../components/ProfilePic";
 import { BioEditor } from "./BioEditor";
 import ImgUploader from "./ImgUploader";
+import Offer from "./Offer";
 // import { updateImg } from "../Redux/actions";
 
 // import { useDispatch, useSelector } from "react-redux";
@@ -44,7 +46,9 @@ export function Profile(props) {
                     />
                 )}
                 <button className="request-btn">Request</button>
-                <button className="offer-btn">Offer</button>
+                <Link to="/offer">
+                    <button className="offer-btn">Offer</button>
+                </Link>
             </div>
         </div>
     );

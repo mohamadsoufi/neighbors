@@ -12,26 +12,39 @@ export async function getUser() {
     }
 }
 
-export async function updateBio(bio) {
+// export async function updateBio(bio) {
+//     try {
+//         const { data } = await axios.post("/check-friendship", bio);
+
+//         return {
+//             type: "ACCEPT_FRIEND_REQUEST",
+//             id,
+//         };
+//     } catch (err) {
+//         console.log("err in receive friendsWannabes action :", err);
+//     }
+// }
+
+// export async function updateImg(bio) {
+//     try {
+//         const { data } = await axios.post("/upload", bio);
+
+//         return {
+//             type: "ACCEPT_FRIEND_REQUEST",
+//             id,
+//         };
+//     } catch (err) {
+//         console.log("err in receive friendsWannabes action :", err);
+//     }
+// }
+
+export async function updateOffer(offer) {
+    console.log("offer in action :", offer);
     try {
-        const { data } = await axios.post("/check-friendship", bio);
+        const { data } = await axios.post("/update-offer", offer);
 
         return {
-            type: "ACCEPT_FRIEND_REQUEST",
-            id,
-        };
-    } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
-    }
-}
-
-export async function updateImg(bio) {
-    try {
-        const { data } = await axios.post("/upload", bio);
-
-        return {
-            type: "ACCEPT_FRIEND_REQUEST",
-            id,
+            type: "UPDATE_OFFER",
         };
     } catch (err) {
         console.log("err in receive friendsWannabes action :", err);

@@ -159,6 +159,15 @@ app.post("/update-img", uploader.single("file"), s3.upload, function (
     });
 });
 
+app.post("/update-offer", async (req, res) => {
+    // // const { halal } = req.body;
+    console.log("req.body in update offer :", req.body);
+    // db.addUserPic(url, req.session.userId).then(({ rows }) => {
+    //     console.log("rows[0] :", rows[0]);
+    //     res.json(rows[0].profile_pic);
+    // });
+});
+
 app.get("/logout", function (req, res) {
     req.session.userId = null;
     res.redirect("/login");

@@ -4,24 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser } from "./Redux/actions";
 import { Profile } from "./components/Profile";
+import Offer from "./components/Offer";
 
 export default function App() {
     const [bioTrack, setBioTracker] = useState();
-    const [urlTracker, setUrlTracker] = useState();
+    const [tracker, setTracker] = useState();
     const dispatch = useDispatch();
 
     const user = useSelector((state) => (state.user ? state.user : {}));
-    console.log("user :", user);
     useEffect(() => {
         dispatch(getUser());
-    }, [bioTrack, urlTracker]);
+    }, [bioTrack, tracker]);
 
     const setBio = (newBio) => {
         setBioTracker(newBio);
     };
 
     const updateUrl = (newUrl) => {
-        setUrlTracker(newUrl);
+        setTracker(newUrl);
     };
 
     return (
@@ -30,8 +30,21 @@ export default function App() {
                 <a className="logout" href="/logout">
                     LOGOUT
                 </a>
+
+                <Link to="/">Profile</Link>
             </header>
-            <Profile user={user} setBio={setBio} updateUrl={updateUrl} />
+            <Route
+                exact
+                path="/"
+                render={() => (
+                    <Profile
+                        user={user}
+                        setBio={setBio}
+                        updateUrl={updateUrl}
+                    />
+                )}
+            />
+            <Route exact path="/offer" render={() => <Offer />} />
         </BrowserRouter>
     );
 }
