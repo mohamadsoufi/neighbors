@@ -29,7 +29,6 @@ export class BioEditor extends Component {
                         id: id,
                         mode: "read",
                     });
-                    console.log("this.state.bio in bio :", this.state.bio);
                     this.props.setBio(this.state.bio);
                 } else {
                     this.setState({
@@ -51,9 +50,6 @@ export class BioEditor extends Component {
     }
 
     render() {
-        console.log("props in bio const :", this.props);
-
-        // console.log("this.props in bio render :", this.props);
         if (this.state.mode === "edit") {
             return (
                 <div className="bio-textarea">

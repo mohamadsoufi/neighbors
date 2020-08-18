@@ -25,34 +25,15 @@ export async function updateBio(bio) {
     }
 }
 
-export async function unfriend(text, id) {
+export async function updateImg(bio) {
     try {
-        let info = {
-            text,
-            id,
-        };
-        await axios.post("/check-friendship", info);
+        const { data } = await axios.post("/upload", bio);
+
         return {
-            type: "UNFRIEND",
+            type: "ACCEPT_FRIEND_REQUEST",
             id,
         };
     } catch (err) {
         console.log("err in receive friendsWannabes action :", err);
     }
-}
-
-export async function chatMessage(chatMessage) {
-    return {
-        type: "CHAT_MESSAGE",
-        chatMessage,
-    };
-}
-export async function chatMessages(msgs) {
-    let id = msgs.slice(0, 1);
-    let chatMessages = msgs.slice(1, 10);
-    return {
-        type: "CHAT_MESSAGES",
-        chatMessages,
-        id,
-    };
 }

@@ -6,17 +6,22 @@ import { getUser } from "./Redux/actions";
 import { Profile } from "./components/Profile";
 
 export default function App() {
-    const [bioTrack, setBioTrack] = useState();
+    const [bioTrack, setBioTracker] = useState();
+    const [urlTracker, setUrlTracker] = useState();
     const dispatch = useDispatch();
 
     const user = useSelector((state) => (state.user ? state.user : {}));
-
+    console.log("user :", user);
     useEffect(() => {
         dispatch(getUser());
-    }, [bioTrack]);
+    }, [bioTrack, urlTracker]);
 
-    const setBio = (e) => {
-        setBioTrack(e);
+    const setBio = (newBio) => {
+        setBioTracker(newBio);
+    };
+
+    const updateUrl = (newUrl) => {
+        setUrlTracker(newUrl);
     };
 
     return (
@@ -26,8 +31,7 @@ export default function App() {
                     LOGOUT
                 </a>
             </header>
-            <div>hello from the app</div>
-            <Profile user={user} setBio={setBio} />
+            <Profile user={user} setBio={setBio} updateUrl={updateUrl} />
         </BrowserRouter>
     );
 }

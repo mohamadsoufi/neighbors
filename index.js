@@ -147,6 +147,18 @@ app.post("/update-bio", function (req, res) {
     });
 });
 
+app.post("/update-img", uploader.single("file"), s3.upload, function (
+    req,
+    res
+) {
+    const { filename } = req.file;
+    const url = s3Url + filename;
+    db.addUserPic(url, req.session.userId).then(({ rows }) => {
+        console.log("rows[0] :", rows[0]);
+        res.json(rows[0].profile_pic);
+    });
+});
+
 app.get("/logout", function (req, res) {
     req.session.userId = null;
     res.redirect("/login");

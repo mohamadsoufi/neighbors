@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import ProfilePic from "../components/ProfilePic";
 import { BioEditor } from "./BioEditor";
-// import { updateBio } from "./Redux/actions";
+import ImgUploader from "./ImgUploader";
+// import { updateImg } from "../Redux/actions";
+
+// import { useDispatch, useSelector } from "react-redux";
 
 export function Profile(props) {
     let {
@@ -14,18 +16,6 @@ export function Profile(props) {
     const toggleModal = () => {
         setToggle(!toggle);
     };
-    console.log("toggle :", toggle);
-
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     // dispatch(getUser());
-    //     console.log("effecttt");
-    // }, [setBio]);
-
-    // const setBio = (e) => {
-    //     console.log("bio in set bio>>>>>>:");
-    //     dispatch(updateBio(e));
-    // };
 
     return (
         <div>
@@ -45,13 +35,14 @@ export function Profile(props) {
                 <div className="profile-right-side">
                     <ProfilePic toggleModal={toggleModal} />
                 </div>
-                {/* {ProfilePic && (
-                    <Uploader
-                        imgUrl={this.state.imgUrl}
-                        toggleModal={() => this.toggleModal()}
-                        updateUrl={(e) => this.updateUrl(e)}
+
+                {toggle && (
+                    <ImgUploader
+                        imgUrl={imgUrl}
+                        updateUrl={props.updateUrl}
+                        toggleModal={toggleModal}
                     />
-                )} */}
+                )}
                 <button className="request-btn">Request</button>
                 <button className="offer-btn">Offer</button>
             </div>
