@@ -1,3 +1,7 @@
 .form-container {
     grid-area: 1/6/3/8;
 }
+
+#quantity {
+    width: 90px;
+}

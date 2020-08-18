@@ -42,9 +42,10 @@ export async function updateOffer(offer) {
     console.log("offer in action :", offer);
     try {
         const { data } = await axios.post("/update-offer", offer);
-
+        console.log("data  in action:", data);
         return {
             type: "UPDATE_OFFER",
+            offer: data,
         };
     } catch (err) {
         console.log("err in receive friendsWannabes action :", err);

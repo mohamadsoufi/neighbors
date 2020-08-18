@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./Redux/actions";
 import { Profile } from "./components/Profile";
 import Offer from "./components/Offer";
+import OfferProfile from "./components/OfferProfile";
+import Map from "./components/Map";
 
 export default function App() {
     const [bioTrack, setBioTracker] = useState();
@@ -44,7 +46,13 @@ export default function App() {
                     />
                 )}
             />
-            <Route exact path="/offer" render={() => <Offer />} />
+            <Route
+                exact
+                path="/offer"
+                render={(props) => <Offer {...props} />}
+            />
+            <Route path="/offer-profile" render={() => <OfferProfile />} />
+            <Route exact path="/map" render={() => <Map />} />
         </BrowserRouter>
     );
 }

@@ -79,8 +79,15 @@ const uploader = multer({
 });
 ////////////////////////
 
+app.get("/welcome", (req, res) => {
+    if (req.session.id) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
 app.post("/register", (req, res) => {
-    console.log("req.body :", req.body);
     if (Object.keys(req.body).length !== 0) {
         let { first, last, email, pw } = req.body;
         console.log("password :", pw);
@@ -130,6 +137,7 @@ app.post("/login", function (req, res) {
         })
         .catch((err) => {
             console.log("err in get user info:", err);
+            res.json({ success: false });
         });
 });
 
@@ -159,13 +167,36 @@ app.post("/update-img", uploader.single("file"), s3.upload, function (
     });
 });
 
-app.post("/update-offer", async (req, res) => {
-    // // const { halal } = req.body;
-    console.log("req.body in update offer :", req.body);
-    // db.addUserPic(url, req.session.userId).then(({ rows }) => {
-    //     console.log("rows[0] :", rows[0]);
-    //     res.json(rows[0].profile_pic);
-    // });
+app.post("/update-offer", (req, res) => {
+    let {
+        date,
+        meal,
+        quantity,
+        halal,
+        kosher,
+        vegan,
+        vegetarian,
+        glutenFree,
+    } = req.body;
+    console.log("glutenFree :", glutenFree);
+    db.updateOffer([
+        req.session.userId,
+        date,
+        meal,
+        quantity,
+        halal,
+        kosher,
+        vegan,
+        vegetarian,
+        glutenFree,
+    ])
+        .then(({ rows }) => {
+            console.log("rows :", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("err in update offer/POST :", err);
+        });
 });
 
 app.get("/logout", function (req, res) {
@@ -175,7 +206,7 @@ app.get("/logout", function (req, res) {
 
 app.get("*", function (req, res) {
     if (!req.session.userId) {
-        res.redirect("/welcome");
+        res.redirect("/welcome#/register");
     } else {
         res.sendFile(__dirname + "/index.html");
     }

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateOffer } from "../Redux/actions";
 
-export default function Offer(props) {
+export default function Offer({ history }) {
     const [formValue, setFormValue] = useState({});
 
     const dispatch = useDispatch();
@@ -15,8 +15,12 @@ export default function Offer(props) {
 
     let { first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
-    const submit = () => {
+    const submit = (e) => {
+        e.preventDefault();
+        const newLocation = {};
         dispatch(updateOffer(formValue));
+        newLocation.pathname = "/offer-profile";
+        history.push(newLocation);
     };
 
     const handleChange = (e) => {
@@ -25,7 +29,7 @@ export default function Offer(props) {
             [e.target.name]: e.target.value,
         });
     };
-    console.log("formValue :", formValue);
+    // console.log("formValue :", formValue);
 
     return (
         <div>
@@ -74,11 +78,42 @@ export default function Offer(props) {
                             <input
                                 className="check"
                                 type="checkbox"
+                                id="kosher"
+                                name="kosher"
+                                value="kosher"
+                            />
+                            <label htmlFor="kosher">Kosher</label>
+                        </div>
+                        <div>
+                            <input
+                                className="check"
+                                type="checkbox"
                                 id="vegan"
                                 name="vegan"
                                 value="vegan"
                             />
                             <label htmlFor="vegan">Vegan</label>
+                        </div>
+                        <div>
+                            <input
+                                className="check"
+                                type="checkbox"
+                                id="vegetarian"
+                                name="vegetarian"
+                                value="vegetarian"
+                            />
+                            <label htmlFor="vegetarian">Vegetarian</label>
+                        </div>
+
+                        <div>
+                            <input
+                                className="check"
+                                type="checkbox"
+                                id="glutenFree"
+                                name="glutenFree"
+                                value="glutenFree"
+                            />
+                            <label htmlFor="glutenFree">Gluten-free</label>
                         </div>
                         <button onClick={submit} type="submit">
                             submit

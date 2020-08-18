@@ -74,3 +74,11 @@ module.exports.getSearch = function (search) {
         [search + "%", "%" + search, "%" + search + "%"]
     );
 };
+
+module.exports.updateOffer = (params) => {
+    let q = ` INSERT INTO offers (sender_id, date, meal, quantity , halal, kosher, vegan, vegetarian, gluten_free)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+            RETURNING *`;
+
+    return db.query(q, params);
+};
