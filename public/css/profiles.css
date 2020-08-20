@@ -38,11 +38,10 @@
     width: fit-content;
     align-self: center;
     justify-self: end;
-
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 113px;
+    top: 27vh;
     left: 112px;
 }
 
@@ -137,10 +136,16 @@ button:focus {
 
 .request-btn {
     grid-area: 2/4;
-    background-color: rgba(194, 132, 34, 0.911);
 }
 
 .offer-btn {
     grid-area: 2/8;
+}
+
+.request-btn button {
+    background-color: rgba(194, 132, 34, 0.911);
+}
+
+.offer-btn button {
     background-color: rgba(18, 18, 110, 0.959);
 }

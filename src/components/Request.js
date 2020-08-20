@@ -45,7 +45,7 @@ export default function Request({ history }) {
                 </div>
 
                 <div className="form-container">
-                    <h2>Request</h2>
+                    <h2>Make a Request</h2>
                     <form onChange={handleChange}>
                         <input type="date" name="date" />
                         <div className="quantity-container">

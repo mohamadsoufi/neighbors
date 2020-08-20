@@ -47,7 +47,7 @@ export default function Offer({ history }) {
                 </div>
 
                 <div className="form-container">
-                    <h2>Offer</h2>
+                    <h2>Make an Offer</h2>
                     <form onChange={handleChange}>
                         <input type="date" name="date" />
                         <input
@@ -56,14 +56,17 @@ export default function Offer({ history }) {
                             name="meal"
                             placeholder="meal name"
                         />
-                        <select name="quantity" id="quantity">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                        </select>
+                        <div className="quantity-container">
+                            <p>quantity : </p>
+                            <select name="quantity" id="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
                         <div>
                             <input
                                 className="check"

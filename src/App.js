@@ -31,11 +31,23 @@ export default function App() {
     return (
         <BrowserRouter>
             <header>
-                <a className="logout" href="/logout">
-                    LOGOUT
-                </a>
-
-                <Link to="/">Profile</Link>
+                <div className="header-nav-container">
+                    <div>
+                        <Link className="logo" to="/">
+                            <h2>NEIGHBOURS</h2>
+                        </Link>
+                    </div>
+                    <div className="header-right">
+                        <Link to="/">Profile</Link>
+                        <Link to="/map">
+                            <img className="pin-icon" src="/pin-icon.png" />
+                            Find Neighbours
+                        </Link>
+                        <a className="logout" href="/logout">
+                            Logout
+                        </a>
+                    </div>
+                </div>
             </header>
             <Route
                 exact

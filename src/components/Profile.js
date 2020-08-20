@@ -45,12 +45,12 @@ export function Profile(props) {
                         toggleModal={toggleModal}
                     />
                 )}
-                <Link to="/request">
-                    <button className="request-btn">Request</button>
+                <Link className="request-btn" to="/request">
+                    <button>Request</button>
                 </Link>
 
-                <Link to="/offer">
-                    <button className="offer-btn">Offer</button>
+                <Link className="offer-btn" to="/offer">
+                    <button>Offer</button>
                 </Link>
             </div>
         </div>
