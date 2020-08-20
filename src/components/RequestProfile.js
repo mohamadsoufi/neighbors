@@ -29,6 +29,7 @@ export default function RequestProfile() {
                     let time = new Date(request.created_at);
                     let {
                         id,
+                        location,
                         date,
                         quantity,
                         halal,
@@ -56,7 +57,7 @@ export default function RequestProfile() {
                                 </p>
                                 <p>cook date: {date}</p>
                                 <p>quantity: {quantity}</p>
-
+                                <p>location: {location}</p>
                                 <h4>Food dietary</h4>
                                 <p>{halal}</p>
                                 <p>{kosher}</p>

@@ -49,7 +49,13 @@ export default function Request({ history }) {
                     <h2>Make a Request</h2>
                     <form onChange={handleChange}>
                         <input type="date" name="date" />
-                        <Search />
+                        {/* <Search /> */}
+                        <input
+                            onChange={handleChange}
+                            type="text"
+                            name="location"
+                            placeholder="location"
+                        />
 
                         <div className="quantity-container">
                             <p>quantity : </p>

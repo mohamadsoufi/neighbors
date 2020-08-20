@@ -30,6 +30,7 @@ export default function OfferProfile() {
                     let {
                         id,
                         date,
+                        location,
                         meal,
                         quantity,
                         halal,
@@ -48,6 +49,7 @@ export default function OfferProfile() {
                                 />
                             </Link> */}
                             <div className="offer">
+                                <p>location: {location}</p>
                                 <p>
                                     made on{" "}
                                     {time.toLocaleDateString([], {

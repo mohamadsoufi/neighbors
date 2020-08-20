@@ -170,6 +170,7 @@ app.post("/update-offer", (req, res) => {
     let {
         date,
         meal,
+        location,
         quantity,
         halal,
         kosher,
@@ -179,6 +180,7 @@ app.post("/update-offer", (req, res) => {
     } = req.body;
     db.updateOffer([
         req.session.userId,
+        location,
         date,
         meal,
         quantity,
@@ -204,6 +206,7 @@ app.get("/get-offers", async (req, res) => {
 app.post("/update-request", (req, res) => {
     let {
         date,
+        location,
         quantity,
         halal,
         kosher,
@@ -213,6 +216,7 @@ app.post("/update-request", (req, res) => {
     } = req.body;
     db.updateRequest([
         req.session.userId,
+        location,
         date,
         quantity,
         halal,
@@ -238,7 +242,7 @@ app.get("/get-users-location", async (req, res) => {
     const usersReq = await db.getUsersReqLocation();
     const usersOffers = await db.getUsersOfferLocation();
     console.log("usersReq :", usersReq);
-    // res.json(rows);
+    res.json({ usersOffers, usersReq });
 });
 
 app.get("/logout", function (req, res) {

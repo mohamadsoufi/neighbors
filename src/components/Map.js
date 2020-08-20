@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { getUsersLocation } from "../Redux/actions";
+// import { getUsersLocation } from "../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { getUser, getRequests, getOffers } from "../Redux/actions";
 
 import {
     GoogleMap,
@@ -11,10 +12,10 @@ import {
 } from "@react-google-maps/api";
 import Search from "./Search";
 
-// import usePlacesAutocomplete, {
-//     getGeocode,
-//     getLatLng,
-// } from "use-places-autocomplete";
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -27,6 +28,8 @@ const center = {
 };
 const secrets = require("../../secrets");
 import mapStyles from "./mapstyles";
+// import "@reach/combobox/styles.css";
+
 const options = {
     styles: mapStyles,
     disableDefaultUI: true,
@@ -36,12 +39,23 @@ const options = {
 export default function Map() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUsersLocation());
+        dispatch(getUser());
+        dispatch(getOffers());
+        dispatch(getRequests());
     }, []);
+    const user = useSelector((state) => (state.user ? state.user : {}));
     const offers = useSelector(
         (state) =>
             state.offers &&
             state.offers.sort(
+                (a, b) => new Date(a.created_at) - new Date(b.created_at)
+            )
+    );
+
+    const requests = useSelector(
+        (state) =>
+            state.requests &&
+            state.requests.sort(
                 (a, b) => new Date(a.created_at) - new Date(b.created_at)
             )
     );
@@ -65,25 +79,39 @@ export default function Map() {
     }, []);
 
     const mapRef = React.useRef();
-    const onMapLoad = React.useCallback((map) => {
+    const onMapLoad = React.useCallback((map, e) => {
         mapRef.current = map;
     }, []);
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
 
-    // const handleSelect = async (address) => {
-    //     // setValue(addr, false);
-    //     // clearSuggestions();
-    //     try {
-    //         const results = await getGeocode({ address });
-    //         const { lat, lng } = await getLatLng(results[0]);
-    //         console.log("lat,lng :", lat, lng);
-    //         console.log("results[0] :", results[0]);
-    //     } catch (error) {
-    //         console.log("😱 Error: ", error);
-    //     }
-    // };
-    // handleSelect("Berlin");
+    const handleSelect = async (address) => {
+        // setValue(addr, false);
+        // clearSuggestions();
+        try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            console.log("lat,lng :", lat, lng);
+            // if ((lat, lng)) {
+            //     setMarkers((current, lat, lng) => [
+            //         ...current,
+            //         {
+            //             lat,
+            //             lng,
+            //             time: new Date(),
+            //         },
+            //     ]);
+            // }
+        } catch (error) {
+            console.log("😱 Error: ", error);
+        }
+    };
+    if (offers) {
+        let offerLocation = offers[0].location;
+        console.log("offerLocation:", offerLocation);
+        handleSelect(offerLocation);
+    }
+    // handleSelect(offerLocation);
 
     return (
         <div>

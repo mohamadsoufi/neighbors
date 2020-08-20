@@ -57,7 +57,7 @@ export default function Offer({ history }) {
                             name="meal"
                             placeholder="meal name"
                         />
-                        <Search />
+                        <Search handleChangeInSearch={handleChange} />
                         {/* <input
                             onChange={handleChange}
                             type="text"

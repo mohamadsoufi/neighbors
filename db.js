@@ -76,8 +76,8 @@ module.exports.getSearch = function (search) {
 };
 
 module.exports.updateOffer = (params) => {
-    let q = ` INSERT INTO offers (sender_id, date, meal, quantity , halal, kosher, vegan, vegetarian, gluten_free)
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    let q = ` INSERT INTO offers (sender_id, location, date, meal, quantity , halal, kosher, vegan, vegetarian, gluten_free)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
             RETURNING *`;
 
     return db.query(q, params);
@@ -90,8 +90,8 @@ module.exports.getOffers = (params) => {
 };
 
 module.exports.updateRequest = (params) => {
-    let q = ` INSERT INTO requests (sender_id, date, quantity , halal, kosher, vegan, vegetarian, gluten_free)
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+    let q = ` INSERT INTO requests (sender_id, location, date, quantity , halal, kosher, vegan, vegetarian, gluten_free)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
             RETURNING *`;
 
     return db.query(q, params);

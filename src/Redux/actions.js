@@ -65,6 +65,7 @@ export async function getRequests() {
 export async function getUsersLocation() {
     try {
         const { data } = await axios.get("/get-users-location");
+        console.log("data i action get location :", data);
         return {
             type: "GET_USERS_LOCATION",
             locations: data,

@@ -89,6 +89,7 @@ header {
 ul {
     list-style-type: none;
     background-color: aliceblue;
+    position: absolute;
 }
 .search input {
     cursor: text;
