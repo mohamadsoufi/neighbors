@@ -12,10 +12,7 @@ import {
 } from "@react-google-maps/api";
 import Search from "./Search";
 
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -36,7 +33,7 @@ const options = {
     zoomControl: true,
 };
 //const geocoder = new window.google.maps.Geocoder();
-export default function Map() {
+export default function Map({ searchOnly, handleChangeInSearch }) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getUser());
@@ -78,10 +75,6 @@ export default function Map() {
         ]);
     }, []);
 
-    const mapRef = React.useRef();
-    const onMapLoad = React.useCallback((map, e) => {
-        mapRef.current = map;
-    }, []);
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
 
@@ -106,49 +99,57 @@ export default function Map() {
             console.log("😱 Error: ", error);
         }
     };
-    if (offers) {
-        let offerLocation = offers[0].location;
-        console.log("offerLocation:", offerLocation);
-        handleSelect(offerLocation);
-    }
+    // if (offers) {
+    //     let offerLocation = offers[0].location;
+    //     console.log("offerLocation:", offerLocation);
+    //     handleSelect(offerLocation);
+    // }
     // handleSelect(offerLocation);
+
+    const handleSearch = (props) => {
+        if (handleChangeInSearch) {
+            return handleChangeInSearch(props);
+        }
+        console.log("handle change in map comp gets props:", props);
+    };
 
     return (
         <div>
-            <Search />
+            <Search handleChangeInSearch={handleSearch} />
 
-            <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                zoom={12}
-                center={center}
-                mapStyles={mapStyles}
-                options={options}
-                onClick={onMapClick}
-                onLoad={onMapLoad}
-            >
-                {markers &&
-                    markers.map((marker) => (
-                        <Marker
-                            key={`${marker.lat}-${marker.lng}`}
-                            position={{ lat: marker.lat, lng: marker.lng }}
-                            onClick={() => {
-                                setSelected(marker);
+            {!searchOnly && (
+                <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={12}
+                    center={center}
+                    mapStyles={mapStyles}
+                    options={options}
+                    onClick={onMapClick}
+                >
+                    {markers &&
+                        markers.map((marker) => (
+                            <Marker
+                                key={`${marker.lat}-${marker.lng}`}
+                                position={{ lat: marker.lat, lng: marker.lng }}
+                                onClick={() => {
+                                    setSelected(marker);
+                                }}
+                            />
+                        ))}
+                    {selected ? (
+                        <InfoWindow
+                            position={{ lat: selected.lat, lng: selected.lng }}
+                            onCloseClick={() => {
+                                setSelected(null);
                             }}
-                        />
-                    ))}
-                {selected ? (
-                    <InfoWindow
-                        position={{ lat: selected.lat, lng: selected.lng }}
-                        onCloseClick={() => {
-                            setSelected(null);
-                        }}
-                    >
-                        <div>
-                            <h2>req/offer</h2>
-                        </div>
-                    </InfoWindow>
-                ) : null}
-            </GoogleMap>
+                        >
+                            <div>
+                                <h2>req/offer</h2>
+                            </div>
+                        </InfoWindow>
+                    ) : null}
+                </GoogleMap>
+            )}
         </div>
     );
 }

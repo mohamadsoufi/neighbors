@@ -21,11 +21,11 @@ request NUMERIC(7),
     date VARCHAR(255) NOT NULL,
     meal VARCHAR(255) NOT NULL,
     quantity NUMERIC(7) NOT NULL,
-    halal VARCHAR(255),
-    kosher VARCHAR(255),
-    vegan VARCHAR(255),
-    vegetarian VARCHAR(255),
-    gluten_free VARCHAR(255),
+    halal BOOLEAN DEFAULT FALSE,
+    kosher BOOLEAN DEFAULT FALSE,
+    vegan BOOLEAN DEFAULT FALSE,
+    vegetarian BOOLEAN DEFAULT FALSE,
+    gluten_free BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
 

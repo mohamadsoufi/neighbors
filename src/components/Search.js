@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet";
-
+import React from "react";
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -12,11 +10,6 @@ import {
     ComboboxList,
     ComboboxOption,
 } from "@reach/combobox";
-import { useLoadScript, GoogleMap, useGoogleMap } from "@react-google-maps/api";
-
-const secrets = require("../../secrets.json");
-
-const libraries = ["places"];
 
 //  <Locate panTo={panTo} />
 // <Search panTo={panTo} />
@@ -41,24 +34,8 @@ const libraries = ["places"];
 //         </button>
 //     );
 // }
-const Wrapper = ({ children }) => {
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: secrets.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries,
-    });
-    return <GoogleMap>{isLoaded ? children : null}</GoogleMap>;
-};
 export default function Search({ panTo, handleChangeInSearch }) {
-    // const map = useGoogleMap();
-    console.log("props in search :", handleChangeInSearch);
-    // const { isLoaded, loadError } = useLoadScript({
-    //     googleMapsApiKey: secrets.REACT_APP_GOOGLE_MAPS_API_KEY,
-    //     libraries,
-    // });
-    // const mapRef = React.useRef();
-    // const onMapLoad = React.useCallback((map) => {
-    //     mapRef.current = map;
-    // }, []);
+    // console.log("props in search :", handleChangeInSearch);
 
     const {
         ready,
@@ -75,17 +52,17 @@ export default function Search({ panTo, handleChangeInSearch }) {
             radius: 100 * 1000,
             debounce: 300,
         },
-        // googleMaps: map,
     });
 
     const handleInput = (e) => {
         setValue(e.target.value);
-        handleChangeInSearch(e);
+        handleChangeInSearch(e.target.value);
     };
 
     const handleSelect = async (address) => {
         setValue(address, false);
         console.log("address in search:", address);
+        handleChangeInSearch(address);
         clearSuggestions();
 
         try {
@@ -101,31 +78,27 @@ export default function Search({ panTo, handleChangeInSearch }) {
         return null;
     }
 
-    // if (loadError) return "Error";
-    // if (!isLoaded) return "Loading...";
     return (
         <div className="search">
-            <Wrapper>
-                <Combobox onSelect={handleSelect}>
-                    <ComboboxInput
-                        value={value}
-                        onChange={handleInput}
-                        disabled={!ready}
-                        placeholder="Search your location"
-                    />
-                    <ComboboxPopover>
-                        <ComboboxList>
-                            {status === "OK" &&
-                                data.map(({ id, description }) => (
-                                    <ComboboxOption
-                                        key={id}
-                                        value={description}
-                                    />
-                                ))}
-                        </ComboboxList>
-                    </ComboboxPopover>
-                </Combobox>
-            </Wrapper>
+            <Combobox onSelect={handleSelect}>
+                <ComboboxInput
+                    value={value}
+                    onChange={handleInput}
+                    disabled={!ready}
+                    placeholder="Search your location"
+                />
+                <ComboboxPopover>
+                    <ComboboxList>
+                        {status === "OK" &&
+                            data.map(({ id, description }) => (
+                                <ComboboxOption
+                                    key={id + description}
+                                    value={description}
+                                />
+                            ))}
+                    </ComboboxList>
+                </ComboboxPopover>
+            </Combobox>
         </div>
     );
 }

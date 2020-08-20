@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateOffer } from "../Redux/actions";
-import Search from "./Search";
+
+import Map from "./Map";
 
 export default function Offer({ history }) {
-    const [formValue, setFormValue] = useState({});
+    const [formValue, setFormValue] = useState({ quantity: "1" });
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -25,12 +25,26 @@ export default function Offer({ history }) {
     };
 
     const handleChange = (e) => {
+        console.log("name:", e.target.name, "val:", e.target.value);
         setFormValue({
             ...formValue,
             [e.target.name]: e.target.value,
         });
     };
-    // console.log("formValue :", formValue);
+
+    const handleChecklistChange = (e) => {
+        setFormValue({
+            ...formValue,
+            [e.target.name]: e.target.checked,
+        });
+    };
+    const handleChangeInSearch = (address) => {
+        setFormValue({
+            ...formValue,
+            address,
+        });
+    };
+    console.log("formValue :", formValue);
 
     return (
         <div>
@@ -49,32 +63,39 @@ export default function Offer({ history }) {
 
                 <div className="form-container">
                     <h2>Make an Offer</h2>
-                    <form onChange={handleChange}>
-                        <input type="date" name="date" />
-                        <input
-                            onChange={handleChange}
-                            type="text"
-                            name="meal"
-                            placeholder="meal name"
-                        />
-                        <Search handleChangeInSearch={handleChange} />
-                        {/* <input
+                    <input type="date" name="date" onChange={handleChange} />
+                    <input
+                        onChange={handleChange}
+                        type="text"
+                        name="meal"
+                        placeholder="meal name"
+                    />
+                    <Map
+                        handleChangeInSearch={handleChangeInSearch}
+                        searchOnly
+                    />
+                    {/* <input
                             onChange={handleChange}
                             type="text"
                             name="location"
                             placeholder="location"
                         /> */}
-                        <div className="quantity-container">
-                            <p>quantity : </p>
-                            <select name="quantity" id="quantity">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                            </select>
-                        </div>
+                    <div className="quantity-container">
+                        <p>quantity : </p>
+                        <select
+                            name="quantity"
+                            id="quantity"
+                            onChange={handleChange}
+                        >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <form onChange={handleChecklistChange}>
                         <div>
                             <input
                                 className="check"
