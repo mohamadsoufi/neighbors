@@ -33,5 +33,12 @@ export default function reducer(state = {}, action) {
             requests: action.requests,
         };
     }
+    if (action.type == "GET_USERS_LOCATION") {
+        state = {
+            ...state,
+            locations: action.locations,
+        };
+    }
+
     return state;
 }

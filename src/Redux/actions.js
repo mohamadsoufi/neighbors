@@ -61,3 +61,15 @@ export async function getRequests() {
         console.log("err in receive friendsWannabes action :", err);
     }
 }
+
+export async function getUsersLocation() {
+    try {
+        const { data } = await axios.get("/get-users-location");
+        return {
+            type: "GET_USERS_LOCATION",
+            locations: data,
+        };
+    } catch (err) {
+        console.log("err in receive friendsWannabes action :", err);
+    }
+}

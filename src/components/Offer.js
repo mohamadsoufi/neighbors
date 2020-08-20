@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateOffer } from "../Redux/actions";
+import Search from "./Search";
 
 export default function Offer({ history }) {
     const [formValue, setFormValue] = useState({});
@@ -56,6 +57,13 @@ export default function Offer({ history }) {
                             name="meal"
                             placeholder="meal name"
                         />
+                        <Search />
+                        {/* <input
+                            onChange={handleChange}
+                            type="text"
+                            name="location"
+                            placeholder="location"
+                        /> */}
                         <div className="quantity-container">
                             <p>quantity : </p>
                             <select name="quantity" id="quantity">

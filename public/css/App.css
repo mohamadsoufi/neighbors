@@ -81,3 +81,28 @@ header {
     -webkit-box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.3);
     background-color: rgba(49, 49, 200, 0.527);
 }
+.search {
+    z-index: 10;
+    cursor: text;
+    list-style-type: none;
+}
+ul {
+    list-style-type: none;
+    background-color: aliceblue;
+}
+.search input {
+    cursor: text;
+}
+/* 
+.locate {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+.locate img {
+  width: 30px;
+  cursor: pointer;
+} */

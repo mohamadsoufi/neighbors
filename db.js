@@ -102,3 +102,15 @@ module.exports.getRequests = (params) => {
          WHERE sender_id = $1`;
     return db.query(q, params);
 };
+
+module.exports.getUsersReqLocation = () => {
+    let q = `SELECT * FROM requests
+         ORDER BY created_at DESC`;
+    return db.query(q);
+};
+
+module.exports.getUsersOfferLocation = () => {
+    let q = `SELECT * FROM offers
+         ORDER BY created_at DESC`;
+    return db.query(q);
+};

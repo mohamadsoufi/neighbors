@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS offers;
 CREATE TABLE offers( id SERIAL PRIMARY KEY,
 sender_id INT REFERENCES users(id) NOT NULL,
 request NUMERIC(7),
+    location VARCHAR(255) NOT NULL,
     date VARCHAR(255) NOT NULL,
     meal VARCHAR(255) NOT NULL,
     quantity NUMERIC(7) NOT NULL,
@@ -32,6 +33,7 @@ DROP TABLE IF EXISTS requests;
 
 CREATE TABLE requests( id SERIAL PRIMARY KEY,
 sender_id INT REFERENCES users(id) NOT NULL,
+    location VARCHAR(255) NOT NULL,
     date VARCHAR(255) NOT NULL,
     quantity NUMERIC(7) NOT NULL,
     halal VARCHAR(255),

@@ -234,6 +234,13 @@ app.get("/get-requests", async (req, res) => {
     res.json(rows);
 });
 
+app.get("/get-users-location", async (req, res) => {
+    const usersReq = await db.getUsersReqLocation();
+    const usersOffers = await db.getUsersOfferLocation();
+    console.log("usersReq :", usersReq);
+    // res.json(rows);
+});
+
 app.get("/logout", function (req, res) {
     req.session.userId = null;
     res.redirect("/login");

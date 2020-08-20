@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { getUsersLocation } from "../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
     GoogleMap,
     useLoadScript,
     Marker,
     InfoWindow,
 } from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
-//const libraries = "places";
+import Search from "./Search";
+
+// import usePlacesAutocomplete, {
+//     getGeocode,
+//     getLatLng,
+// } from "use-places-autocomplete";
+
+const libraries = ["places"];
 const mapContainerStyle = {
     width: "500px",
     height: "500px",
@@ -27,9 +34,21 @@ const options = {
 };
 //const geocoder = new window.google.maps.Geocoder();
 export default function Map() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUsersLocation());
+    }, []);
+    const offers = useSelector(
+        (state) =>
+            state.offers &&
+            state.offers.sort(
+                (a, b) => new Date(a.created_at) - new Date(b.created_at)
+            )
+    );
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: secrets.REACT_APP_GOOGLE_MAPS_API_KEY,
-        //libraries,
+        libraries,
     });
 
     const [markers, setMarkers] = useState([{ lat: 52.522331, lng: 13.41274 }]);
@@ -51,40 +70,25 @@ export default function Map() {
     }, []);
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
-    /* const geocodeAddress = (geocoder, resultsMap) => {
-        const address = document.getElementById("address").value;
-        geocoder.geocode({ address: address }, (results, status) => {
-            if (status === "OK") {
-                resultsMap.setCenter(results[0].geometry.location);
-                new window.google.maps.Marker({
-                    map: resultsMap,
-                    position: results[0].geometry.location,
-                }); 
-            } else {
-                alert(
-                    "Geocode was not successful for the following reason: " +
-                        status
-                );
-            }
-        });
-    }; */
 
-    const handleSelect = async (address) => {
-        // setValue(addr, false);
-        // clearSuggestions();
-        try {
-            const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            console.log("lat,lng :", lat, lng);
-            console.log("results[0] :", results[0]);
-        } catch (error) {
-            console.log("😱 Error: ", error);
-        }
-    };
-    handleSelect("Berlin");
+    // const handleSelect = async (address) => {
+    //     // setValue(addr, false);
+    //     // clearSuggestions();
+    //     try {
+    //         const results = await getGeocode({ address });
+    //         const { lat, lng } = await getLatLng(results[0]);
+    //         console.log("lat,lng :", lat, lng);
+    //         console.log("results[0] :", results[0]);
+    //     } catch (error) {
+    //         console.log("😱 Error: ", error);
+    //     }
+    // };
+    // handleSelect("Berlin");
 
     return (
         <div>
+            <Search />
+
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={12}

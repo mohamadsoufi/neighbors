@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateRequest } from "../Redux/actions";
+import Search from "./Search";
 
 export default function Request({ history }) {
     const [formValue, setFormValue] = useState({});
@@ -48,6 +49,8 @@ export default function Request({ history }) {
                     <h2>Make a Request</h2>
                     <form onChange={handleChange}>
                         <input type="date" name="date" />
+                        <Search />
+
                         <div className="quantity-container">
                             <p>quantity : </p>
                             <select name="quantity" id="quantity">
