@@ -69,36 +69,22 @@ export default function Map() {
         });
     }; */
 
-    // const handleSelect = async (address) => {
-    //     // setValue(addr, false);
-    //     // clearSuggestions();
-    //     try {
-    //         const results = await getGeocode({ address });
-    //         const { lat, lng } = await getLatLng(results[0]);
-    //         console.log("lat,lng :", lat, lng);                                                              onsole.log("results[0] :", results[0]);
-    //     } catch (error) {
-    //         console.log("😱 Error: ", error);
-    //     }
-    // };
-    // handleSelect("Berlin");
-
-    const geocoder = new window.google.maps.Geocoder();
-    console.log("geocoder :", geocoder);
-    const getCoordinates = (address, callback) => {
-        let coordinates;
-        geocoder.geocode({ address: address }, function (results, status) {
-            coordinates = results;
-            callback(coordinates);
-        });
-        // console.log(coordinates);
+    const handleSelect = async (address) => {
+        // setValue(addr, false);
+        // clearSuggestions();
+        try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            console.log("lat,lng :", lat, lng);
+            console.log("results[0] :", results[0]);
+        } catch (error) {
+            console.log("😱 Error: ", error);
+        }
     };
-    getCoordinates("Berlin", function (coordinates) {
-        console.log("coordinates :", coordinates);
-    });
+    handleSelect("Berlin");
 
     return (
         <div>
-            <p id="address">Warthestraße 8, Berlin</p>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={12}

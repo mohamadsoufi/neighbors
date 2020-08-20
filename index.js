@@ -162,7 +162,6 @@ app.post("/update-img", uploader.single("file"), s3.upload, function (
     const { filename } = req.file;
     const url = s3Url + filename;
     db.addUserPic(url, req.session.userId).then(({ rows }) => {
-        console.log("rows[0] :", rows[0]);
         res.json(rows[0].profile_pic);
     });
 });
@@ -178,7 +177,6 @@ app.post("/update-offer", (req, res) => {
         vegetarian,
         glutenFree,
     } = req.body;
-    console.log("glutenFree :", glutenFree);
     db.updateOffer([
         req.session.userId,
         date,
@@ -191,12 +189,49 @@ app.post("/update-offer", (req, res) => {
         glutenFree,
     ])
         .then(({ rows }) => {
-            console.log("rows :", rows);
             res.json(rows);
         })
         .catch((err) => {
             console.log("err in update offer/POST :", err);
         });
+});
+
+app.get("/get-offers", async (req, res) => {
+    const { rows } = await db.getOffers([req.session.userId]);
+    res.json(rows);
+});
+
+app.post("/update-request", (req, res) => {
+    let {
+        date,
+        quantity,
+        halal,
+        kosher,
+        vegan,
+        vegetarian,
+        glutenFree,
+    } = req.body;
+    db.updateRequest([
+        req.session.userId,
+        date,
+        quantity,
+        halal,
+        kosher,
+        vegan,
+        vegetarian,
+        glutenFree,
+    ])
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("err in update request/POST :", err);
+        });
+});
+
+app.get("/get-requests", async (req, res) => {
+    const { rows } = await db.getRequests([req.session.userId]);
+    res.json(rows);
 });
 
 app.get("/logout", function (req, res) {

@@ -12,32 +12,6 @@ export async function getUser() {
     }
 }
 
-// export async function updateBio(bio) {
-//     try {
-//         const { data } = await axios.post("/check-friendship", bio);
-
-//         return {
-//             type: "ACCEPT_FRIEND_REQUEST",
-//             id,
-//         };
-//     } catch (err) {
-//         console.log("err in receive friendsWannabes action :", err);
-//     }
-// }
-
-// export async function updateImg(bio) {
-//     try {
-//         const { data } = await axios.post("/upload", bio);
-
-//         return {
-//             type: "ACCEPT_FRIEND_REQUEST",
-//             id,
-//         };
-//     } catch (err) {
-//         console.log("err in receive friendsWannabes action :", err);
-//     }
-// }
-
 export async function updateOffer(offer) {
     console.log("offer in action :", offer);
     try {
@@ -46,6 +20,42 @@ export async function updateOffer(offer) {
         return {
             type: "UPDATE_OFFER",
             offer: data,
+        };
+    } catch (err) {
+        console.log("err in receive friendsWannabes action :", err);
+    }
+}
+
+export async function getOffers() {
+    try {
+        const { data } = await axios.get("/get-offers");
+        return {
+            type: "GET_OFFER",
+            offers: data,
+        };
+    } catch (err) {
+        console.log("err in receive friendsWannabes action :", err);
+    }
+}
+
+export async function updateRequest(request) {
+    try {
+        const { data } = await axios.post("/update-request", request);
+        return {
+            type: "UPDATE_REQUEST",
+            request: data,
+        };
+    } catch (err) {
+        console.log("err in receive friendsWannabes action :", err);
+    }
+}
+
+export async function getRequests() {
+    try {
+        const { data } = await axios.get("/get-requests");
+        return {
+            type: "GET_REQUESTS",
+            requests: data,
         };
     } catch (err) {
         console.log("err in receive friendsWannabes action :", err);

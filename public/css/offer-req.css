@@ -3,5 +3,26 @@
 }
 
 #quantity {
-    width: 90px;
+    width: 35px;
+    margin: 0 5px;
+}
+
+.offers-list,
+.requests-list {
+    width: 260px;
+}
+
+.offer,
+.request {
+    margin: 25px 0;
+    border-bottom: gray 1px solid;
+}
+
+.quantity-container {
+    display: flex;
+    height: 21px;
+}
+
+.quantity-container p {
+    margin: 0;
 }

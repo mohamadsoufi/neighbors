@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, getOffers } from "../Redux/actions";
+import { getUser, getRequests } from "../Redux/actions";
 
-export default function OfferProfile() {
+export default function RequestProfile() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getUser());
-        dispatch(getOffers());
+        dispatch(getRequests());
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));
-    const offers = useSelector(
+    const requests = useSelector(
         (state) =>
-            state.offers &&
-            state.offers.sort(
+            state.requests &&
+            state.requests.sort(
                 (a, b) => new Date(a.created_at) - new Date(b.created_at)
             )
     );
@@ -22,22 +22,21 @@ export default function OfferProfile() {
     let { first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
 
-    const showOffers = (
+    const showRequests = (
         <div>
-            {offers &&
-                offers.map((offer, i) => {
-                    let time = new Date(offer.created_at);
+            {requests &&
+                requests.map((request, i) => {
+                    let time = new Date(request.created_at);
                     let {
                         id,
                         date,
-                        meal,
                         quantity,
                         halal,
                         kosher,
                         vegan,
                         vegetarian,
                         glutenFree,
-                    } = offer;
+                    } = request;
                     return (
                         <div key={i} className="user-content-container">
                             {/* <Link to={`/user/${id}`}>
@@ -47,7 +46,7 @@ export default function OfferProfile() {
                                     alt={first}
                                 />
                             </Link> */}
-                            <div className="offer">
+                            <div className="request">
                                 <p>
                                     made on{" "}
                                     {time.toLocaleDateString([], {
@@ -56,7 +55,6 @@ export default function OfferProfile() {
                                     })}
                                 </p>
                                 <p>cook date: {date}</p>
-                                <p>meal: {meal}</p>
                                 <p>quantity: {quantity}</p>
 
                                 <h4>Food dietary</h4>
@@ -84,10 +82,9 @@ export default function OfferProfile() {
                 <div className="profile-right-side">
                     <img className="profile-pic" src={imgUrl} alt={first} />
                 </div>
-                <p>offer profile!!!!</p>
-                <div className="offers-list">
-                    <h2>Offers List:</h2>
-                    {showOffers && showOffers}
+                <div className="requests-list">
+                    <h2>requests List:</h2>
+                    {showRequests && showRequests}
                 </div>
             </div>
         </div>

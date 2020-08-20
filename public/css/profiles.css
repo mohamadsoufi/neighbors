@@ -41,8 +41,8 @@
 
     display: flex;
     flex-direction: column;
-    position: fixed;
-    top: 133px;
+    position: absolute;
+    top: 113px;
     left: 112px;
 }
 

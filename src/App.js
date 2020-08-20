@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./Redux/actions";
 import { Profile } from "./components/Profile";
 import Offer from "./components/Offer";
+import Request from "./components/Request";
 import OfferProfile from "./components/OfferProfile";
+import RequestProfile from "./components/RequestProfile";
 import Map from "./components/Map";
 
 export default function App() {
@@ -51,6 +53,8 @@ export default function App() {
                 path="/offer"
                 render={(props) => <Offer {...props} />}
             />
+            <Route exact path="/request" component={Request} />
+            <Route exact path="/request-profile" component={RequestProfile} />
             <Route path="/offer-profile" render={() => <OfferProfile />} />
             <Route exact path="/map" render={() => <Map />} />
         </BrowserRouter>

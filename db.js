@@ -82,3 +82,23 @@ module.exports.updateOffer = (params) => {
 
     return db.query(q, params);
 };
+
+module.exports.getOffers = (params) => {
+    let q = `SELECT * FROM offers
+         WHERE sender_id = $1`;
+    return db.query(q, params);
+};
+
+module.exports.updateRequest = (params) => {
+    let q = ` INSERT INTO requests (sender_id, date, quantity , halal, kosher, vegan, vegetarian, gluten_free)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+            RETURNING *`;
+
+    return db.query(q, params);
+};
+
+module.exports.getRequests = (params) => {
+    let q = `SELECT * FROM requests
+         WHERE sender_id = $1`;
+    return db.query(q, params);
+};

@@ -26,3 +26,17 @@ request NUMERIC(7),
     vegetarian VARCHAR(255),
     gluten_free VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+
+DROP TABLE IF EXISTS requests;
+
+CREATE TABLE requests( id SERIAL PRIMARY KEY,
+sender_id INT REFERENCES users(id) NOT NULL,
+    date VARCHAR(255) NOT NULL,
+    quantity NUMERIC(7) NOT NULL,
+    halal VARCHAR(255),
+    kosher VARCHAR(255),
+    vegan VARCHAR(255),
+    vegetarian VARCHAR(255),
+    gluten_free VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);

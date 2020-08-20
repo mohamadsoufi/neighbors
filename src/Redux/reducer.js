@@ -13,5 +13,25 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_OFFER") {
+        state = {
+            ...state,
+            offers: action.offers,
+        };
+    }
+
+    if (action.type == "UPDATE_REQUEST") {
+        state = {
+            ...state,
+            request: action.request,
+        };
+    }
+
+    if (action.type == "GET_REQUESTS") {
+        state = {
+            ...state,
+            requests: action.requests,
+        };
+    }
     return state;
 }
