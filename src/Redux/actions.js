@@ -1,11 +1,37 @@
 import axios from "../axios";
 
-export async function getUser() {
+export async function getUser(id) {
     try {
-        const { data } = await axios.get("/user");
+        const { data } = await axios.get("/user/" + id);
+
         return {
             type: "GET_USER",
             user: data,
+            id,
+        };
+    } catch (err) {
+        console.log("err in receive user action :", err);
+    }
+}
+
+export async function getUserProfile() {
+    try {
+        const { data } = await axios.get("/user-profile");
+
+        return {
+            type: "GET_USER_PROFILE",
+            user: data,
+        };
+    } catch (err) {
+        console.log("err in receive user action :", err);
+    }
+}
+export async function getUserOfferProfile(id) {
+    try {
+        const { data } = await axios.get("/api/offers/" + id);
+        return {
+            type: "GET_USER_OFFER_PROFILE",
+            UserOffer: data,
         };
     } catch (err) {
         console.log("err in receive user action :", err);
@@ -13,10 +39,8 @@ export async function getUser() {
 }
 
 export async function updateOffer(offer) {
-    console.log("offer in action :", offer);
     try {
         const { data } = await axios.post("/update-offer", offer);
-        console.log("data  in action:", data);
         return {
             type: "UPDATE_OFFER",
             offer: data,
@@ -29,9 +53,21 @@ export async function updateOffer(offer) {
 export async function getOffers() {
     try {
         const { data } = await axios.get("/get-offers");
+
         return {
             type: "GET_OFFER",
             offers: data,
+        };
+    } catch (err) {
+        console.log("err in receive friendsWannabes action :", err);
+    }
+}
+export async function getOfferDetails(id) {
+    try {
+        const { data } = await axios.get("/get-offer-details/" + id);
+        return {
+            type: "GET_OFFER_DETAILS",
+            offerDetails: data,
         };
     } catch (err) {
         console.log("err in receive friendsWannabes action :", err);

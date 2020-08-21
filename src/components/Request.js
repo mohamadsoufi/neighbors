@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getUser, updateRequest } from "../Redux/actions";
 import Search from "./Search";
+import Map from "./Map";
 
 export default function Request({ history }) {
     const [formValue, setFormValue] = useState({});
@@ -47,28 +48,31 @@ export default function Request({ history }) {
 
                 <div className="form-container">
                     <h2>Make a Request</h2>
-                    <form onChange={handleChange}>
-                        <input type="date" name="date" />
-                        {/* <Search /> */}
-                        <input
-                            onChange={handleChange}
-                            type="text"
-                            name="location"
-                            placeholder="location"
-                        />
+                    <input type="date" name="date" />
+                    {/* <Search /> */}
+                    <Map
+                        handleChangeInSearch={handleChangeInSearch}
+                        searchOnly
+                    />
 
-                        <div className="quantity-container">
-                            <p>quantity : </p>
-                            <select name="quantity" id="quantity">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                            </select>
-                        </div>
-                        <h4>Food dietary</h4>
+                    <div className="quantity-container">
+                        <p>quantity : </p>
+
+                        <select
+                            name="quantity"
+                            nChange={handleChange}
+                            id="quantity"
+                        >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <h4>Food dietary</h4>
+                    <form onChange={handleChange}>
                         <div>
                             <input
                                 className="check"
@@ -120,6 +124,7 @@ export default function Request({ history }) {
                             />
                             <label htmlFor="glutenFree">Gluten-free</label>
                         </div>
+
                         <button onClick={submit} type="submit">
                             submit
                         </button>

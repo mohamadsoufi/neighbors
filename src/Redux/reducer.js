@@ -6,6 +6,20 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_USER_PROFILE") {
+        state = {
+            ...state,
+            user: action.user,
+        };
+    }
+
+    if (action.type == "GET_USER_OFFER_PROFILE") {
+        state = {
+            ...state,
+            UserOffers: action.UserOffer,
+        };
+    }
+
     if (action.type == "UPDATE_OFFER") {
         state = {
             ...state,
@@ -17,6 +31,13 @@ export default function reducer(state = {}, action) {
         state = {
             ...state,
             offers: action.offers,
+        };
+    }
+
+    if (action.type == "GET_OFFER_DETAILS") {
+        state = {
+            ...state,
+            offerDetails: action.offerDetails,
         };
     }
 

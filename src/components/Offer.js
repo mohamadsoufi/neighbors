@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, updateOffer } from "../Redux/actions";
+import { getUser, updateOffer, getOffers } from "../Redux/actions";
 
 import Map from "./Map";
 
@@ -14,13 +14,15 @@ export default function Offer({ history }) {
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));
 
-    let { first, last, email, profile_pic: imgUrl, bio } = user;
+    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
     const submit = (e) => {
         e.preventDefault();
         const newLocation = {};
         dispatch(updateOffer(formValue));
-        newLocation.pathname = "/offer-profile";
+        dispatch(getOffers());
+
+        newLocation.pathname = "/offers/" + id;
         history.push(newLocation);
     };
 

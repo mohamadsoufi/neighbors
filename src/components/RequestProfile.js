@@ -59,11 +59,11 @@ export default function RequestProfile() {
                                 <p>quantity: {quantity}</p>
                                 <p>location: {location}</p>
                                 <h4>Food dietary</h4>
-                                <p>{halal}</p>
-                                <p>{kosher}</p>
-                                <p>{vegan}</p>
-                                <p>{vegetarian}</p>
-                                <p>{glutenFree}</p>
+                                {halal && <p>halal</p>}
+                                {kosher && <p>kosher</p>}
+                                {vegan && <p>vegan</p>}
+                                {vegetarian && <p>vegetarian</p>}
+                                {glutenFree && <p>glutenFree</p>}
                             </div>
                         </div>
                     );

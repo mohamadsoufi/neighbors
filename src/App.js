@@ -9,6 +9,7 @@ import Request from "./components/Request";
 import OfferProfile from "./components/OfferProfile";
 import RequestProfile from "./components/RequestProfile";
 import Map from "./components/Map";
+import OfferProfileDetails from "./components/OfferProfileDetails";
 
 export default function App() {
     const [bioTrack, setBioTracker] = useState();
@@ -65,9 +66,12 @@ export default function App() {
                 path="/offer"
                 render={(props) => <Offer {...props} />}
             />
+            {/* <Route path="/user/:id" component={OtherProfile} /> */}
             <Route exact path="/request" component={Request} />
             <Route exact path="/request-profile" component={RequestProfile} />
-            <Route path="/offer-profile" render={() => <OfferProfile />} />
+            {/* <Route path="/offer-profile" render={() => <OfferProfile />} /> */}
+            <Route path="/offers/:id" component={OfferProfile} />
+            <Route path="/offer-detail/:id" component={OfferProfileDetails} />
             <Route exact path="/map" render={() => <Map />} />
         </BrowserRouter>
     );

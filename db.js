@@ -42,6 +42,13 @@ module.exports.getUser = (id) => {
     return db.query(q, params);
 };
 
+module.exports.getUserOfferProfile = (id) => {
+    let q = `SELECT * FROM offers
+            WHERE sender_id = $1`;
+    let params = [id];
+    return db.query(q, params);
+};
+
 module.exports.getUsers = (val) => {
     let q = `SELECT * FROM users WHERE first ILIKE $1`;
     let params = [val + "%"];
@@ -75,7 +82,7 @@ module.exports.getSearch = function (search) {
     );
 };
 
-module.exports.updateOffer = (params) => {
+module.exports.addOffer = (params) => {
     let q = ` INSERT INTO offers (sender_id, location, date, meal, quantity , halal, kosher, vegan, vegetarian, gluten_free)
             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
             RETURNING *`;
@@ -86,6 +93,12 @@ module.exports.updateOffer = (params) => {
 module.exports.getOffers = (params) => {
     let q = `SELECT * FROM offers
          WHERE sender_id = $1`;
+    return db.query(q, params);
+};
+
+module.exports.getOfferDetails = (params) => {
+    let q = `SELECT * FROM offers
+         WHERE id = $1`;
     return db.query(q, params);
 };
 

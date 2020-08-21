@@ -124,7 +124,6 @@ app.post("/login", function (req, res) {
             compare(pw, hashedPw)
                 .then((matchValue) => {
                     if (matchValue) {
-                        // console.log("matchValue :", matchValue);
                         req.session.userId = id;
                         res.json({ success: true });
                     } else {
@@ -141,10 +140,29 @@ app.post("/login", function (req, res) {
         });
 });
 
-app.get("/user", (req, res) => {
-    db.getUser(req.session.userId).then(({ rows }) => {
-        // let { first, last, bio, profile_pic, id } =;
-        res.json(rows[0]);
+app.get("/user/:id", (req, res) => {
+    db.getUser(req.params.id)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("err :", err);
+        });
+});
+
+app.get("/user-profile", (req, res) => {
+    db.getUser(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("err :", err);
+        });
+});
+
+app.get("/api/offers/:id", (req, res) => {
+    db.getUserOfferProfile(req.params.id).then(({ rows }) => {
+        res.json(rows);
     });
 });
 
@@ -170,7 +188,7 @@ app.post("/update-offer", (req, res) => {
     let {
         date,
         meal,
-        location,
+        address: location,
         quantity,
         halal,
         kosher,
@@ -178,7 +196,7 @@ app.post("/update-offer", (req, res) => {
         vegetarian,
         glutenFree,
     } = req.body;
-    db.updateOffer([
+    db.addOffer([
         req.session.userId,
         location,
         date,
@@ -203,10 +221,15 @@ app.get("/get-offers", async (req, res) => {
     res.json(rows);
 });
 
+app.get("/get-offer-details/:id", async (req, res) => {
+    const { rows } = await db.getOfferDetails([req.params.id]);
+    res.json(rows);
+});
+
 app.post("/update-request", (req, res) => {
     let {
         date,
-        location,
+        address: location,
         quantity,
         halal,
         kosher,
@@ -241,7 +264,6 @@ app.get("/get-requests", async (req, res) => {
 app.get("/get-users-location", async (req, res) => {
     const usersReq = await db.getUsersReqLocation();
     const usersOffers = await db.getUsersOfferLocation();
-    console.log("usersReq :", usersReq);
     res.json({ usersOffers, usersReq });
 });
 

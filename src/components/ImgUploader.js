@@ -34,7 +34,7 @@ export default class ImgUploader extends Component {
 
     render() {
         return (
-            <Fragment>
+            <div className="upload-file-container">
                 <input
                     className="upload-file"
                     onChange={(e) => this.handleChange(e)}
@@ -51,7 +51,7 @@ export default class ImgUploader extends Component {
                 <button className="upload-btn" onClick={() => this.submit()}>
                     submit
                 </button>
-            </Fragment>
+            </div>
         );
     }
 }

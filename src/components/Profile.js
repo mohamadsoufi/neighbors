@@ -4,15 +4,31 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import ProfilePic from "../components/ProfilePic";
 import { BioEditor } from "./BioEditor";
 import ImgUploader from "./ImgUploader";
-import Offer from "./Offer";
+// import Offer from "./Offer";
+import { getUserProfile, getOffers } from "../Redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 // import { updateImg } from "../Redux/actions";
 
-// import { useDispatch, useSelector } from "react-redux";
-
 export function Profile(props) {
-    let {
-        user: { id, first, last, email, profile_pic: imgUrl, bio },
-    } = props;
+    const user = useSelector((state) => (state.user ? state.user : {}));
+    const offers = useSelector(
+        (state) =>
+            state.offers &&
+            state.offers.sort(
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            )
+    );
+    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUserProfile());
+        dispatch(getOffers());
+    }, []);
+
+    // let {
+    //     user: { id, first, last, email, profile_pic: imgUrl, bio },
+    // } = props;
+
     imgUrl = imgUrl || "../user.png";
     const [toggle, setToggle] = useState(false);
     const toggleModal = () => {
@@ -52,6 +68,12 @@ export function Profile(props) {
                 <Link className="offer-btn" to="/offer">
                     <button>Offer</button>
                 </Link>
+
+                {offers && (
+                    <Link className="my-offer-link" to={"/offers/" + id}>
+                        my offers
+                    </Link>
+                )}
             </div>
         </div>
     );

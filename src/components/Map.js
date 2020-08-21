@@ -18,6 +18,7 @@ const libraries = ["places"];
 const mapContainerStyle = {
     width: "500px",
     height: "500px",
+    margin: "0 auto",
 };
 const center = {
     lat: 52.52233,
@@ -34,35 +35,64 @@ const options = {
 };
 //const geocoder = new window.google.maps.Geocoder();
 export default function Map({ searchOnly, handleChangeInSearch }) {
+    const [latLng, setLatLng] = useState({ lat: 52.52233, lng: 13.41274 });
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getUser());
-        dispatch(getOffers());
-        dispatch(getRequests());
-    }, []);
-    const user = useSelector((state) => (state.user ? state.user : {}));
+    // useEffect(() => {
+    //     // dispatch(getUser());
+    //     dispatch(getOffers());
+    //     // dispatch(getRequests());
+    // }, [latLng]);
+    // const user = useSelector((state) => (state.user ? state.user : {}));
     const offers = useSelector(
         (state) =>
             state.offers &&
             state.offers.sort(
-                (a, b) => new Date(a.created_at) - new Date(b.created_at)
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
             )
     );
+    // console.log("offers :", offers);
 
-    const requests = useSelector(
-        (state) =>
-            state.requests &&
-            state.requests.sort(
-                (a, b) => new Date(a.created_at) - new Date(b.created_at)
-            )
-    );
+    const passMarker = React.useCallback(({ lat, lng }) => {
+        setMarkers(() => [
+            {
+                lat,
+                lng,
+            },
+        ]);
+    }, []);
+
+    // console.log("latLng :", latLng);
+
+    const handleSelect = async (address) => {
+        try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            if (lat && lng) {
+                setLatLng({ lat: lat, lng: lng });
+            }
+        } catch (error) {
+            console.log("😱 Error: ", error);
+        }
+    };
+
+    useEffect(() => {
+        passMarker(latLng);
+    }, [latLng]);
+
+    // const requests = useSelector(
+    //     (state) =>
+    //         state.requests &&
+    //         state.requests.sort(
+    //             (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    //         )
+    // );
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: secrets.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     });
-
-    const [markers, setMarkers] = useState([{ lat: 52.522331, lng: 13.41274 }]);
+    // { lat: 52.522331, lng: 13.41274 }
+    const [markers, setMarkers] = useState([]);
     const [selected, setSelected] = useState(null);
     const onMapClick = React.useCallback((e) => {
         setMarkers((current) => [
@@ -74,48 +104,36 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
             },
         ]);
     }, []);
-
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
+    if (offers) {
+        offers.map((offer) => {
+            handleSelect(offer.location);
+        });
+    }
 
-    const handleSelect = async (address) => {
-        // setValue(addr, false);
-        // clearSuggestions();
-        try {
-            const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            console.log("lat,lng :", lat, lng);
-            // if ((lat, lng)) {
-            //     setMarkers((current, lat, lng) => [
-            //         ...current,
-            //         {
-            //             lat,
-            //             lng,
-            //             time: new Date(),
-            //         },
-            //     ]);
-            // }
-        } catch (error) {
-            console.log("😱 Error: ", error);
-        }
-    };
+    //this is making a loop!!!!!!!!!!!!!
     // if (offers) {
-    //     let offerLocation = offers[0].location;
-    //     console.log("offerLocation:", offerLocation);
-    //     handleSelect(offerLocation);
+    //     if (offers[0].location) {
+    //         handleSelect(offers[0].location);
+    //     }
     // }
-    // handleSelect(offerLocation);
 
     const handleSearch = (props) => {
         if (handleChangeInSearch) {
             return handleChangeInSearch(props);
         }
-        console.log("handle change in map comp gets props:", props);
+        // console.log("handle change in map comp gets props:", props);
     };
 
     return (
         <div>
-            <Search handleChangeInSearch={handleSearch} />
+            {searchOnly && <Search handleChangeInSearch={handleSearch} />}
+            {!searchOnly && (
+                <div className="search-container-in-map">
+                    <Search handleChangeInSearch={handleSearch} />
+                </div>
+            )}
 
             {!searchOnly && (
                 <GoogleMap
@@ -125,11 +143,13 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                     mapStyles={mapStyles}
                     options={options}
                     onClick={onMapClick}
+                    // onLoad={onMapLoad}
                 >
                     {markers &&
-                        markers.map((marker) => (
+                        markers.map((marker, i) => (
                             <Marker
-                                key={`${marker.lat}-${marker.lng}`}
+                                key={i}
+                                // key={`${marker.lat}-${marker.lng}`}
                                 position={{ lat: marker.lat, lng: marker.lng }}
                                 onClick={() => {
                                     setSelected(marker);

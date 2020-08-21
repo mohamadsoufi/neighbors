@@ -25,7 +25,7 @@
     margin: 0 10px;
     justify-self: center;
     align-self: center;
-    grid-area: 1/1/1/4;
+    grid-area: 1/1/1/5;
     justify-self: self-start;
 }
 .profile-username p {
@@ -148,4 +148,15 @@ button:focus {
 
 .offer-btn button {
     background-color: rgba(18, 18, 110, 0.959);
+}
+
+.back-icon {
+    height: 40px;
+}
+.back-icon-link {
+    grid-area: 1/1;
+}
+
+.my-offer-link {
+    width: max-content;
 }

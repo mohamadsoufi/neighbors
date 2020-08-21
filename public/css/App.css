@@ -53,6 +53,9 @@ header {
     margin: 10px 30px;
     text-decoration: none;
 }
+.logo:hover {
+    text-decoration: none;
+}
 .logo h2 {
     margin: 0 30px;
     color: rgb(0, 0, 0);
@@ -107,3 +110,126 @@ ul {
   width: 30px;
   cursor: pointer;
 } */
+.upload-file-container {
+    margin: 10px 10px;
+    height: 40px;
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    left: 76px;
+    top: 240px;
+}
+.upload-item {
+    flex-grow: 1;
+    font-size: 16px;
+    max-width: 300px;
+    margin-right: 10px;
+    height: 30px;
+    text-align: center;
+}
+
+.upload-file-label {
+    color: white;
+    flex-grow: 1;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.upload-file-label:hover,
+.upload-btn:hover,
+.more-btn:hover {
+    color: black;
+}
+
+.upload-file {
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    width: 150px;
+    height: 33px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.upload-btn {
+    color: white;
+    margin-left: auto;
+    font-size: 14px;
+    height: 26px;
+    cursor: pointer;
+    border: none;
+}
+
+.upload-icon {
+    height: 55px;
+}
+
+:root {
+    --reach-combobox: 1;
+}
+
+[data-reach-combobox-popover] {
+    border: solid 1px hsla(0, 0%, 0%, 0.25);
+    background: hsla(0, 100%, 100%, 0.99);
+    font-size: 85%;
+}
+
+[data-reach-combobox-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+[data-reach-combobox-option] {
+    cursor: pointer;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+}
+
+[data-reach-combobox-option][aria-selected="true"] {
+    background: hsl(211, 10%, 95%);
+}
+
+[data-reach-combobox-option]:hover {
+    background: hsl(211, 10%, 92%);
+}
+
+[data-reach-combobox-option][aria-selected="true"]:hover {
+    background: hsl(211, 10%, 90%);
+}
+
+[data-suggested-value] {
+    font-weight: bold;
+}
+
+.map-container {
+    margin: 0 auto;
+}
+.search-container-in-map {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    margin-top: 150px;
+}
+
+a {
+    height: 30px;
+    font-size: 18;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgba(151, 142, 142, 0.678);
+}
