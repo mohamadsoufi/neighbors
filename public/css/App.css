@@ -12,7 +12,6 @@ html {
 }
 
 header {
-    margin-bottom: 30px;
     height: 34vh;
     overflow: hidden;
     background: url(/header3.jpg) no-repeat bottom;
@@ -29,9 +28,10 @@ header {
 .header-right {
     display: flex;
     justify-content: space-evenly;
-    width: 35vw;
+    width: 39vw;
     margin: 10px;
-    height: 21px;
+    height: 54px;
+    align-items: center;
 }
 
 .header-right a {
@@ -66,6 +66,14 @@ header {
 .pin-icon {
     height: 20px;
     width: 20px;
+}
+
+.profile-pic-header {
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -113,7 +121,7 @@ ul {
 .upload-file-container {
     margin: 10px 10px;
     height: 40px;
-    width: 300px;
+    width: 240px;
     display: flex;
     justify-content: flex-start;
     align-items: center;

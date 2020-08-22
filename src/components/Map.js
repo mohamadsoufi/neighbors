@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import { getUsersLocation } from "../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getRequests, getOffers } from "../Redux/actions";
+import { getOtherUserProfile, getRequests, getOffers } from "../Redux/actions";
 
 import {
     GoogleMap,
@@ -38,7 +38,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
     const [latLng, setLatLng] = useState({ lat: 52.52233, lng: 13.41274 });
     const dispatch = useDispatch();
     // useEffect(() => {
-    //     // dispatch(getUser());
+    //     // dispatch(getOtherUserProfile());
     //     dispatch(getOffers());
     //     // dispatch(getRequests());
     // }, [latLng]);

@@ -9,7 +9,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "GET_USER_PROFILE") {
         state = {
             ...state,
-            user: action.user,
+            userProfile: action.userProfile,
         };
     }
 

@@ -10,7 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 // import { updateImg } from "../Redux/actions";
 
 export function Profile(props) {
-    const user = useSelector((state) => (state.user ? state.user : {}));
+    const user = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
+    console.log("user :", user);
     const offers = useSelector(
         (state) =>
             state.offers &&
@@ -18,18 +21,19 @@ export function Profile(props) {
                 (a, b) => new Date(b.created_at) - new Date(a.created_at)
             )
     );
-    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
+    let { id, first, last, email, profile_pic: imgUrl } = user;
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getUserProfile());
         dispatch(getOffers());
     }, []);
 
-    // let {
-    //     user: { id, first, last, email, profile_pic: imgUrl, bio },
-    // } = props;
+    let {
+        user: { bio },
+    } = props;
+    console.log("imgUrl :", imgUrl);
 
-    imgUrl = imgUrl || "../user.png";
+    // imgUrl = imgUrl || "../user.png";
     const [toggle, setToggle] = useState(false);
     const toggleModal = () => {
         setToggle(!toggle);
@@ -38,20 +42,27 @@ export function Profile(props) {
     return (
         <div>
             <div className="profile-content-container">
-                <div className="profile-username">
-                    <h1>Profile</h1>
-                    <p>
-                        {first} {last}
-                    </p>
-                </div>
-                <BioEditor
-                    first={first}
-                    id={id}
-                    bio={bio}
-                    setBio={props.setBio}
-                />
-                <div className="profile-right-side">
-                    <ProfilePic toggleModal={toggleModal} />
+                <div className="profile-left-side">
+                    <div className="profile-username">
+                        <h1>Profile</h1>
+                        <p>
+                            {first} {last}
+                        </p>
+                    </div>
+                    <BioEditor
+                        first={first}
+                        id={id}
+                        bio={bio}
+                        setBio={props.setBio}
+                    />
+                    <div className="profile-right-side">
+                        <ProfilePic imgUrl={imgUrl} toggleModal={toggleModal} />
+                    </div>
+                    {offers && (
+                        <Link className="my-offer-link" to={"/offers/" + id}>
+                            my offers
+                        </Link>
+                    )}
                 </div>
 
                 {toggle && (
@@ -68,12 +79,6 @@ export function Profile(props) {
                 <Link className="offer-btn" to="/offer">
                     <button>Offer</button>
                 </Link>
-
-                {offers && (
-                    <Link className="my-offer-link" to={"/offers/" + id}>
-                        my offers
-                    </Link>
-                )}
             </div>
         </div>
     );

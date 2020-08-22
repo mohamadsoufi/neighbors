@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, getOffers, getUserOfferProfile } from "../Redux/actions";
+import {
+    getOtherUserProfile,
+    getOffers,
+    getUserOfferProfile,
+} from "../Redux/actions";
 
 export default function OfferProfile(props) {
     const dispatch = useDispatch();
     useEffect(() => {
         const { id } = props.match.params;
 
-        dispatch(getUser(id));
+        dispatch(getOtherUserProfile(id));
         dispatch(getUserOfferProfile(id));
         dispatch(getOffers());
     }, []);

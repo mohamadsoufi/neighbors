@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, updateOffer, getOffers } from "../Redux/actions";
+import { updateOffer, getOffers, getUserProfile } from "../Redux/actions";
 
 import Map from "./Map";
 
 export default function Offer({ history }) {
     const [formValue, setFormValue] = useState({ quantity: "1" });
 
+    const user = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
+    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUser());
+        dispatch(getUserProfile());
     }, []);
-    const user = useSelector((state) => (state.user ? state.user : {}));
 
-    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
     const submit = (e) => {
         e.preventDefault();
@@ -51,18 +53,19 @@ export default function Offer({ history }) {
     return (
         <div>
             <div className="profile-content-container">
-                <div className="profile-username">
-                    <h1>Profile</h1>
-                    <p>
-                        {first} {last}
-                    </p>
-                </div>
-                {bio && <h2 className="bio-text-container">{bio}</h2>}
+                <div className="profile-left-side">
+                    <div className="profile-username">
+                        <h1>Profile</h1>
+                        <p>
+                            {first} {last}
+                        </p>
+                    </div>
+                    {bio && <h2 className="bio-text-container">{bio}</h2>}
 
-                <div className="profile-right-side">
-                    <img className="profile-pic" src={imgUrl} alt={first} />
+                    <div className="profile-right-side">
+                        <img className="profile-pic" src={imgUrl} alt={first} />
+                    </div>
                 </div>
-
                 <div className="form-container">
                     <h2>Make an Offer</h2>
                     <input type="date" name="date" onChange={handleChange} />

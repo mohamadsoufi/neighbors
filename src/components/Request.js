@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, updateRequest } from "../Redux/actions";
+import { getOtherUserProfile, updateRequest } from "../Redux/actions";
 import Search from "./Search";
 import Map from "./Map";
 
@@ -10,7 +10,7 @@ export default function Request({ history }) {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUser());
+        dispatch(getOtherUserProfile());
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));
 

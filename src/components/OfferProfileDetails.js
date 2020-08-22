@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-    getUser,
+    getOtherUserProfile,
     getOffers,
     getUserOfferProfile,
     getOfferDetails,
@@ -26,7 +26,7 @@ export default function OfferProfileDetails(props) {
         userId = offers[0].sender_id;
     }
     useEffect(() => {
-        dispatch(getUser(userId));
+        dispatch(getOtherUserProfile(userId));
         dispatch(getUserOfferProfile(userId));
     }, [userId]);
 

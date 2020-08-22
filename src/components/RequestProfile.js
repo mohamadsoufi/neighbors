@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser, getRequests } from "../Redux/actions";
+import { getOtherUserProfile, getRequests } from "../Redux/actions";
 
 export default function RequestProfile() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUser());
+        dispatch(getOtherUserProfile());
         dispatch(getRequests());
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));

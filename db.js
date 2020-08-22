@@ -62,13 +62,6 @@ module.exports.getUserInfo = (email) => {
     return db.query(q, params);
 };
 
-module.exports.getUser = (id) => {
-    let q = `SELECT * FROM users
-            WHERE id = $1`;
-    let params = [id];
-    return db.query(q, params);
-};
-
 module.exports.getSearch = function (search) {
     return db.query(
         `SELECT * FROM items

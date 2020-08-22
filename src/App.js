@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUser } from "./Redux/actions";
+import { getOtherUserProfile, getUserProfile } from "./Redux/actions";
 import { Profile } from "./components/Profile";
 import Offer from "./components/Offer";
 import Request from "./components/Request";
@@ -16,15 +16,19 @@ export default function App() {
     const [tracker, setTracker] = useState();
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => (state.user ? state.user : {}));
+    // const user = useSelector((state) => (state.user ? state.user : {}));
+    const user = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
     useEffect(() => {
-        dispatch(getUser());
+        dispatch(getUserProfile());
     }, [bioTrack, tracker]);
+    let { id, first, last, email, profile_pic: imgUrl } = user;
 
     const setBio = (newBio) => {
         setBioTracker(newBio);
     };
-
+    console.log("imgUrl in app :", imgUrl);
     const updateUrl = (newUrl) => {
         setTracker(newUrl);
     };
@@ -47,6 +51,14 @@ export default function App() {
                         <a className="logout" href="/logout">
                             Logout
                         </a>
+
+                        {imgUrl && (
+                            <img
+                                className="profile-pic-header"
+                                src={imgUrl}
+                                alt={first}
+                            />
+                        )}
                     </div>
                 </div>
             </header>
@@ -61,11 +73,8 @@ export default function App() {
                     />
                 )}
             />
-            <Route
-                exact
-                path="/offer"
-                render={(props) => <Offer {...props} />}
-            />
+
+            <Route exact path="/offer" component={Offer} />
             {/* <Route path="/user/:id" component={OtherProfile} /> */}
             <Route exact path="/request" component={Request} />
             <Route exact path="/request-profile" component={RequestProfile} />

@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-export async function getUser(id) {
+export async function getOtherUserProfile(id) {
     try {
         const { data } = await axios.get("/user/" + id);
 
@@ -20,7 +20,7 @@ export async function getUserProfile() {
 
         return {
             type: "GET_USER_PROFILE",
-            user: data,
+            userProfile: data,
         };
     } catch (err) {
         console.log("err in receive user action :", err);
