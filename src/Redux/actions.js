@@ -10,7 +10,7 @@ export async function getOtherUserProfile(id) {
             id,
         };
     } catch (err) {
-        console.log("err in receive user action :", err);
+        console.log("err in getOtherUserProfile action :", err);
     }
 }
 
@@ -23,7 +23,7 @@ export async function getUserProfile() {
             userProfile: data,
         };
     } catch (err) {
-        console.log("err in receive user action :", err);
+        console.log("err in getUserProfile action :", err);
     }
 }
 export async function getUserOfferProfile(id) {
@@ -31,10 +31,23 @@ export async function getUserOfferProfile(id) {
         const { data } = await axios.get("/api/offers/" + id);
         return {
             type: "GET_USER_OFFER_PROFILE",
-            UserOffer: data,
+            UserOffers: data,
         };
     } catch (err) {
-        console.log("err in receive user action :", err);
+        console.log("err in getUserOfferProfile action :", err);
+    }
+}
+
+export async function getUserRequestProfile(id) {
+    try {
+        const { data } = await axios.get("/api/requests/" + id);
+        console.log("data in get user req :", data);
+        return {
+            type: "GET_USER_REQUEST_PROFILE",
+            UserRequests: data,
+        };
+    } catch (err) {
+        console.log("err in getUserRequestProfile action :", err);
     }
 }
 
@@ -46,7 +59,7 @@ export async function updateOffer(offer) {
             offer: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in  updateOffer action :", err);
     }
 }
 
@@ -55,13 +68,14 @@ export async function getOffers() {
         const { data } = await axios.get("/get-offers");
 
         return {
-            type: "GET_OFFER",
+            type: "GET_OFFERS",
             offers: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in getOffers action :", err);
     }
 }
+
 export async function getOfferDetails(id) {
     try {
         const { data } = await axios.get("/get-offer-details/" + id);
@@ -70,7 +84,44 @@ export async function getOfferDetails(id) {
             offerDetails: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in getOfferDetails action :", err);
+    }
+}
+export async function getRequestDetails(id) {
+    try {
+        const { data } = await axios.get("/get-offer-details/" + id);
+        return {
+            type: "GET_OFFER_DETAILS",
+            offerDetails: data,
+        };
+    } catch (err) {
+        console.log("err in getRequestDetails action :", err);
+    }
+}
+
+export async function getAllOffers() {
+    try {
+        const { data } = await axios.get("/get-all-offers");
+
+        return {
+            type: "GET_ALL_OFFERS",
+            allOffers: data,
+        };
+    } catch (err) {
+        console.log("err in getAllOffers action :", err);
+    }
+}
+
+export async function getAllRequests() {
+    try {
+        const { data } = await axios.get("/get-all-requests");
+
+        return {
+            type: "GET_ALL_REQUESTS",
+            allRequests: data,
+        };
+    } catch (err) {
+        console.log("err in getAllRequests action :", err);
     }
 }
 
@@ -82,7 +133,7 @@ export async function updateRequest(request) {
             request: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in updateRequest action :", err);
     }
 }
 
@@ -94,7 +145,7 @@ export async function getRequests() {
             requests: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in getRequests action :", err);
     }
 }
 
@@ -107,6 +158,6 @@ export async function getUsersLocation() {
             locations: data,
         };
     } catch (err) {
-        console.log("err in receive friendsWannabes action :", err);
+        console.log("err in getUsersLocation action :", err);
     }
 }

@@ -33,9 +33,9 @@
     justify-self: end;
     display: flex;
     flex-direction: column;
-    position: relative;
-    top: -72vh;
-    left: 74px;
+    position: absolute;
+    top: 3vh;
+    left: 146px;
 }
 
 .profile-pic-small {
@@ -169,6 +169,7 @@ button:focus {
     transform: scale(1.04);
     text-decoration: none;
 }
+
 .request-btn::after,
 .offer-btn::after {
     outline: none;
@@ -182,6 +183,13 @@ button:focus {
 .offer-btn button {
     background-color: rgba(18, 18, 110, 0);
     font-size: 20px;
+}
+
+.offer-btn button:hover {
+    color: rgba(194, 132, 34, 0.911);
+}
+.request-btn button:hover {
+    color: rgba(18, 18, 110, 0.959);
 }
 
 .back-icon {

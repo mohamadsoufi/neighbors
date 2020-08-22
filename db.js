@@ -49,6 +49,13 @@ module.exports.getUserOfferProfile = (id) => {
     return db.query(q, params);
 };
 
+module.exports.getUserRequestProfile = (id) => {
+    let q = `SELECT * FROM requests
+            WHERE sender_id = $1`;
+    let params = [id];
+    return db.query(q, params);
+};
+
 module.exports.getUsers = (val) => {
     let q = `SELECT * FROM users WHERE first ILIKE $1`;
     let params = [val + "%"];
@@ -86,6 +93,16 @@ module.exports.addOffer = (params) => {
 module.exports.getOffers = (params) => {
     let q = `SELECT * FROM offers
          WHERE sender_id = $1`;
+    return db.query(q, params);
+};
+
+module.exports.getAllOffers = (params) => {
+    let q = `SELECT * FROM offers`;
+    return db.query(q, params);
+};
+
+module.exports.getAllRequests = (params) => {
+    let q = `SELECT * FROM requests`;
     return db.query(q, params);
 };
 

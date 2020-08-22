@@ -28,7 +28,6 @@ export default function App() {
     const setBio = (newBio) => {
         setBioTracker(newBio);
     };
-    console.log("imgUrl in app :", imgUrl);
     const updateUrl = (newUrl) => {
         setTracker(newUrl);
     };
@@ -77,7 +76,8 @@ export default function App() {
             <Route exact path="/offer" component={Offer} />
             {/* <Route path="/user/:id" component={OtherProfile} /> */}
             <Route exact path="/request" component={Request} />
-            <Route exact path="/request-profile" component={RequestProfile} />
+            {/* <Route exact path="/request-profile" component={RequestProfile} /> */}
+            <Route exact path="/requests/:id" component={RequestProfile} />
             {/* <Route path="/offer-profile" render={() => <OfferProfile />} /> */}
             <Route path="/offers/:id" component={OfferProfile} />
             <Route path="/offer-detail/:id" component={OfferProfileDetails} />

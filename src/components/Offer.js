@@ -79,12 +79,7 @@ export default function Offer({ history }) {
                         handleChangeInSearch={handleChangeInSearch}
                         searchOnly
                     />
-                    {/* <input
-                            onChange={handleChange}
-                            type="text"
-                            name="location"
-                            placeholder="location"
-                        /> */}
+
                     <div className="quantity-container">
                         <p>quantity : </p>
                         <select

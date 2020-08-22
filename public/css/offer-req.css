@@ -10,6 +10,7 @@
 .offers-list,
 .requests-list {
     width: 260px;
+    grid-area: 2/7 / auto/8;
 }
 
 .offer,

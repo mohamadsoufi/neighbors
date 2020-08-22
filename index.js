@@ -166,6 +166,13 @@ app.get("/api/offers/:id", (req, res) => {
     });
 });
 
+app.get("/api/requests/:id", (req, res) => {
+    console.log("req.params.id :", req.params.id);
+    db.getUserRequestProfile(req.params.id).then(({ rows }) => {
+        res.json(rows);
+    });
+});
+
 app.post("/update-bio", function (req, res) {
     db.updateBio(req.body.text, req.session.userId).then(({ rows }) => {
         let { bio, id } = rows[0];
@@ -226,6 +233,16 @@ app.get("/get-offer-details/:id", async (req, res) => {
     res.json(rows);
 });
 
+app.get("/get-all-offers", async (req, res) => {
+    const { rows } = await db.getAllOffers();
+    res.json(rows);
+});
+
+app.get("/get-all-requests", async (req, res) => {
+    const { rows } = await db.getAllRequests();
+    res.json(rows);
+});
+
 app.post("/update-request", (req, res) => {
     let {
         date,
@@ -249,6 +266,7 @@ app.post("/update-request", (req, res) => {
         glutenFree,
     ])
         .then(({ rows }) => {
+            console.log("rows in post req :", rows);
             res.json(rows);
         })
         .catch((err) => {

@@ -20,6 +20,13 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_USER_REQUEST_PROFILE") {
+        state = {
+            ...state,
+            UserRequests: action.UserRequests,
+        };
+    }
+
     if (action.type == "UPDATE_OFFER") {
         state = {
             ...state,
@@ -27,7 +34,7 @@ export default function reducer(state = {}, action) {
         };
     }
 
-    if (action.type == "GET_OFFER") {
+    if (action.type == "GET_OFFERS") {
         state = {
             ...state,
             offers: action.offers,
@@ -38,6 +45,20 @@ export default function reducer(state = {}, action) {
         state = {
             ...state,
             offerDetails: action.offerDetails,
+        };
+    }
+
+    if (action.type == "GET_ALL_OFFERS") {
+        state = {
+            ...state,
+            allOffers: action.allOffers,
+        };
+    }
+
+    if (action.type == "GET_ALL_REQUESTS") {
+        state = {
+            ...state,
+            allRequests: action.allRequests,
         };
     }
 

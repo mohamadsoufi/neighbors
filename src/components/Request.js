@@ -1,55 +1,72 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getOtherUserProfile, updateRequest } from "../Redux/actions";
+import { updateRequest, getUserProfile } from "../Redux/actions";
 import Search from "./Search";
 import Map from "./Map";
 
 export default function Request({ history }) {
-    const [formValue, setFormValue] = useState({});
+    const [formValue, setFormValue] = useState({ quantity: "1" });
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getOtherUserProfile());
+        dispatch(getUserProfile());
     }, []);
-    const user = useSelector((state) => (state.user ? state.user : {}));
+    const user = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
 
-    let { first, last, email, profile_pic: imgUrl, bio } = user;
+    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
     const submit = (e) => {
         e.preventDefault();
         const newLocation = {};
         dispatch(updateRequest(formValue));
-        newLocation.pathname = "/request-profile";
+        newLocation.pathname = "/requests/" + id;
         history.push(newLocation);
     };
-
+    console.log("formValue in req :", formValue);
     const handleChange = (e) => {
+        console.log("name:", e.target.name, "val:", e.target.value);
         setFormValue({
             ...formValue,
             [e.target.name]: e.target.value,
         });
     };
 
+    const handleChecklistChange = (e) => {
+        setFormValue({
+            ...formValue,
+            [e.target.name]: e.target.checked,
+        });
+    };
+    const handleChangeInSearch = (address) => {
+        setFormValue({
+            ...formValue,
+            address,
+        });
+    };
+
     return (
         <div>
             <div className="profile-content-container">
-                <div className="profile-username">
-                    <h1>Profile</h1>
-                    <p>
-                        {first} {last}
-                    </p>
-                </div>
-                {bio && <h2 className="bio-text-container">{bio}</h2>}
+                <div className="profile-left-side">
+                    <div className="profile-username">
+                        <h1>Profile</h1>
+                        <p>
+                            {first} {last}
+                        </p>
+                    </div>
+                    {bio && <h2 className="bio-text-container">{bio}</h2>}
 
-                <div className="profile-right-side">
-                    <img className="profile-pic" src={imgUrl} alt={first} />
+                    <div className="profile-right-side">
+                        <img className="profile-pic" src={imgUrl} alt={first} />
+                    </div>
                 </div>
 
                 <div className="form-container">
                     <h2>Make a Request</h2>
-                    <input type="date" name="date" />
-                    {/* <Search /> */}
+                    <input type="date" name="date" onChange={handleChange} />
                     <Map
                         handleChangeInSearch={handleChangeInSearch}
                         searchOnly
@@ -60,7 +77,7 @@ export default function Request({ history }) {
 
                         <select
                             name="quantity"
-                            nChange={handleChange}
+                            onChange={handleChange}
                             id="quantity"
                         >
                             <option value="1">1</option>
@@ -72,7 +89,7 @@ export default function Request({ history }) {
                         </select>
                     </div>
                     <h4>Food dietary</h4>
-                    <form onChange={handleChange}>
+                    <form onChange={handleChecklistChange}>
                         <div>
                             <input
                                 className="check"

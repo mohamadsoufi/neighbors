@@ -66,14 +66,18 @@ export default function OfferProfile(props) {
     return (
         <div>
             <div className="profile-content-container">
-                <div className="profile-username">
-                    <p>
-                        {first} {last}
-                    </p>
-                </div>
-                {bio && <h2 className="bio-text-container">{bio}</h2>}
-                <div className="profile-right-side">
-                    <img className="profile-pic" src={imgUrl} alt={first} />
+                <div className="profile-left-side">
+                    <div className="profile-username">
+                        <h1>Profile</h1>
+                        <p>
+                            {first} {last}
+                        </p>
+                    </div>
+                    {bio && <h2 className="bio-text-container">{bio}</h2>}
+
+                    <div className="profile-right-side">
+                        <img className="profile-pic" src={imgUrl} alt={first} />
+                    </div>
                 </div>
                 <div className="offers-list">
                     <h2>Offers List:</h2>
