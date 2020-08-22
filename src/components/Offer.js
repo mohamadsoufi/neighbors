@@ -29,7 +29,7 @@ export default function Offer({ history }) {
     };
 
     const handleChange = (e) => {
-        console.log("name:", e.target.name, "val:", e.target.value);
+        // console.log("name:", e.target.name, "val:", e.target.value);
         setFormValue({
             ...formValue,
             [e.target.name]: e.target.value,
@@ -48,7 +48,7 @@ export default function Offer({ history }) {
             address,
         });
     };
-    console.log("formValue :", formValue);
+    // console.log("formValue :", formValue);
 
     return (
         <div>

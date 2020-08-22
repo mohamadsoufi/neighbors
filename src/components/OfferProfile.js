@@ -15,7 +15,7 @@ export default function OfferProfile(props) {
 
         dispatch(getOtherUserProfile(id));
         dispatch(getUserOfferProfile(id));
-        dispatch(getOffers());
+        // dispatch(getOffers());
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));
     const offers = useSelector(

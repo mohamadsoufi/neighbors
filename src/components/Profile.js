@@ -13,7 +13,6 @@ export function Profile(props) {
     const user = useSelector((state) =>
         state.userProfile ? state.userProfile : {}
     );
-    console.log("user :", user);
     const offers = useSelector(
         (state) =>
             state.offers &&
@@ -31,7 +30,6 @@ export function Profile(props) {
     let {
         user: { bio },
     } = props;
-    console.log("imgUrl :", imgUrl);
 
     // imgUrl = imgUrl || "../user.png";
     const [toggle, setToggle] = useState(false);

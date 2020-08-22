@@ -16,7 +16,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "GET_USER_OFFER_PROFILE") {
         state = {
             ...state,
-            UserOffers: action.UserOffer,
+            UserOffers: action.UserOffers,
         };
     }
 
