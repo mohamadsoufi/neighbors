@@ -38,7 +38,6 @@ const options = {
 export default function Map({ searchOnly, handleChangeInSearch }) {
     const [markersOffer, setMarkersOffer] = useState([]);
     const [markersReq, setMarkersReq] = useState([]);
-    const [markersReqChecked, setMarkersReqChecked] = useState(false);
     const [selected, setSelected] = useState(null);
 
     const { isLoaded, loadError } = useLoadScript({
@@ -55,56 +54,61 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
 
     useEffect(() => {
         // console.log("offers  in use:", offers, isLoaded);
-        if (!offers || !isLoaded || searchOnly) return;
+        if (!offers || !offers.length || !isLoaded || searchOnly) return;
         // setMarkersOfferChecked(true);
-        offers.forEach(async (offer) => {
-            const { lat, lng } = await getLatLngFromAddress(offer.location);
-            setMarkersOffer((current) => {
-                if (current.find((cur) => cur.id === offer.id)) {
-                    return current;
-                }
-                return [
-                    ...current,
-                    {
-                        lat,
-                        lng,
-                        id: offer.id,
-                        senderId: offer.sender_id,
-                        meal: offer.meal,
-                        quantity: offer.quantity,
-                        date: offer.date,
-                    },
-                ];
-            });
+        offers.forEach((offer, i) => {
+            setTimeout(async () => {
+                const { lat, lng } = await getLatLngFromAddress(offer.location);
+                setMarkersOffer((current) => {
+                    if (current.find((cur) => cur.id === offer.id)) {
+                        return current;
+                    }
+                    return [
+                        ...current,
+                        {
+                            lat,
+                            lng,
+                            id: offer.id,
+                            senderId: offer.sender_id,
+                            meal: offer.meal,
+                            quantity: offer.quantity,
+                            date: offer.date,
+                        },
+                    ];
+                });
+            }, 200 * i);
         });
     }, [offers, isLoaded, searchOnly]);
 
     useEffect(() => {
-        if (!requests || !isLoaded || searchOnly || markersReqChecked) return;
-        setMarkersReqChecked(true);
+        if (!requests || !requests.length || !isLoaded || searchOnly) return;
 
-        requests.forEach(async (request) => {
-            const { lat, lng } = await getLatLngFromAddress(request.location);
+        requests.forEach((request, i) => {
+            setTimeout(async () => {
+                const { lat, lng } = await getLatLngFromAddress(
+                    request.location
+                );
 
-            setMarkersReq((current) => {
-                if (current.find((cur) => cur.id === request.id)) {
-                    return current;
-                }
-                return [
-                    ...current,
-                    {
-                        lat,
-                        lng,
-                        id: request.id,
-                        senderId: request.sender_id,
-                        date: request.date,
-                        quantity: request.quantity,
-                        req: true,
-                    },
-                ];
-            });
+                setMarkersReq((current) => {
+                    if (current.find((cur) => cur.id === request.id)) {
+                        return current;
+                    }
+                    return [
+                        ...current,
+                        {
+                            lat,
+                            lng,
+                            id: request.id,
+                            senderId: request.sender_id,
+                            date: request.date,
+                            quantity: request.quantity,
+                            req: true,
+                        },
+                    ];
+                });
+            }, 100 * i);
         });
-    }, [requests, isLoaded, searchOnly, markersReqChecked]);
+    }, [requests, isLoaded, searchOnly]);
 
     console.log("selected :", selected);
     const dispatch = useDispatch();
@@ -125,6 +129,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
         try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
+
             return { lat, lng };
         } catch (error) {
             console.log("😱 Error in getLatLngFromAddress: ", error);

@@ -61,16 +61,24 @@ export default function Search({ panTo, handleChangeInSearch }) {
 
     const handleSelect = async (address) => {
         setValue(address, false);
-        console.log("address in search:", address);
-        handleChangeInSearch(address);
         clearSuggestions();
+        const { lat, lng } = await getLatLngFromAddress(address);
+        handleChangeInSearch({ lat, lng, address });
+    };
 
+    const getLatLngFromAddress = async (address, attempt) => {
         try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            // panTo({ lat, lng });
+
+            return { lat, lng };
         } catch (error) {
-            console.log("😱 Error: ", error);
+            console.log("😱 Error in getLatLngFromAddress: ", error, attempt);
+            if (attempt == 5) return;
+
+            setTimeout(() => {
+                getLatLngFromAddress(address, (attempt || 0) + 1);
+            }, 3000);
         }
     };
 

@@ -41,7 +41,7 @@ export default function Request({ history }) {
             [e.target.name]: e.target.checked,
         });
     };
-    const handleChangeInSearch = (address) => {
+    const handleChangeInSearch = ({ address }) => {
         setFormValue({
             ...formValue,
             address,

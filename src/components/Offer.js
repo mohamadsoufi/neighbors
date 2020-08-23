@@ -18,11 +18,11 @@ export default function Offer({ history }) {
     }, []);
 
     imgUrl = imgUrl || "../user.png";
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         const newLocation = {};
-        dispatch(updateOffer(formValue));
-        dispatch(getOffers());
+        await dispatch(updateOffer(formValue));
+        // dispatch(getOffers());
 
         newLocation.pathname = "/offers/" + id;
         history.push(newLocation);
@@ -42,10 +42,12 @@ export default function Offer({ history }) {
             [e.target.name]: e.target.checked,
         });
     };
-    const handleChangeInSearch = (address) => {
+    const handleChangeInSearch = ({ lat, lng, address }) => {
         setFormValue({
             ...formValue,
             address,
+            lat,
+            lng,
         });
     };
     // console.log("formValue :", formValue);
