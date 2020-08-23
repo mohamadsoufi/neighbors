@@ -32,12 +32,11 @@ export function LoginRegister() {
                 <Link to="/login">LOGIN</Link>
             </div>
         );
-
     return (
         <div className="login-register-container">
             {!!error && <div>Oops! Something went wrong.</div>}
             {!hasAccount && (
-                <div>
+                <div className="first-last-container">
                     <input
                         onChange={handleChange}
                         name="first"

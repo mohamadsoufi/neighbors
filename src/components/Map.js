@@ -19,8 +19,8 @@ import mapStyles from "./mapstyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    width: "900px",
-    height: "600px",
+    width: "800px",
+    height: "360px",
     margin: "0 auto",
 };
 const center = {
@@ -60,7 +60,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
         offers.forEach(async (offer) => {
             const { lat, lng } = await getLatLngFromAddress(offer.location);
             setMarkersOffer((current) => {
-                if (current.find((cur) => cur.id === offer.sender_id)) {
+                if (current.find((cur) => cur.id === offer.id)) {
                     return current;
                 }
                 return [
@@ -68,7 +68,8 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                     {
                         lat,
                         lng,
-                        id: offer.sender_id,
+                        id: offer.id,
+                        senderId: offer.sender_id,
                         meal: offer.meal,
                         quantity: offer.quantity,
                         date: offer.date,
@@ -86,7 +87,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
             const { lat, lng } = await getLatLngFromAddress(request.location);
 
             setMarkersReq((current) => {
-                if (current.find((cur) => cur.id === request.sender_id)) {
+                if (current.find((cur) => cur.id === request.id)) {
                     return current;
                 }
                 return [
@@ -94,7 +95,8 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                     {
                         lat,
                         lng,
-                        id: request.sender_id,
+                        id: request.id,
+                        senderId: request.sender_id,
                         date: request.date,
                         quantity: request.quantity,
                         req: true,
@@ -114,7 +116,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
 
     useEffect(() => {
         if (!selected) return;
-        dispatch(getOtherUserProfile(selected.id));
+        dispatch(getOtherUserProfile(selected.senderId));
     }, [selected]);
     const user = useSelector((state) => (state.user ? state.user : {}));
     let { id, first, last, email, profile_pic: imgUrl, bio } = user;
@@ -165,7 +167,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
             {!searchOnly && (
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
-                    zoom={12}
+                    zoom={11}
                     center={center}
                     mapStyles={mapStyles}
                     options={options}
@@ -232,9 +234,16 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                         >
                             {!selected.req ? (
                                 <div>
-                                    <h2>
-                                        {first} {last}
-                                    </h2>
+                                    <div className="infoWindow-name-img-container">
+                                        <img
+                                            className="profile-pic-header"
+                                            src={imgUrl}
+                                        />
+
+                                        <h2>
+                                            {first} {last}
+                                        </h2>
+                                    </div>
                                     <h4>offered on: {selected.date}</h4>
                                     <h4>meal: {selected.meal}</h4>
                                     <h4>quantity: {selected.quantity}</h4>
@@ -244,9 +253,16 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                                 </div>
                             ) : (
                                 <div>
-                                    <h2>
-                                        {first} {last}
-                                    </h2>
+                                    <div className="infoWindow-name-img-container">
+                                        <img
+                                            className="profile-pic-header"
+                                            src={imgUrl}
+                                        />
+
+                                        <h2>
+                                            {first} {last}
+                                        </h2>
+                                    </div>
                                     <h4>Requested on: {selected.date}</h4>
                                     <h4>quantity: {selected.quantity}</h4>
                                     <Link to={`/requests/${id}`}>

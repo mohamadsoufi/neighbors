@@ -5,7 +5,7 @@
     flex-direction: column;
     height: 100vh;
 
-    background-image: url(/background1.svg);
+    background-image: url(/background4.svg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,8 +20,12 @@
     padding-left: 15px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.781);
-    -moz-box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
-    box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
+    box-shadow: 11px 8px 31px -11px rgb(199, 182, 31);
+}
+
+.first-last-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .login-register-btn-link {

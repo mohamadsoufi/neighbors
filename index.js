@@ -318,8 +318,11 @@ io.use(function (socket, next) {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 
+let usersSockets = {};
 io.on("connection", async (socket) => {
     const userId = socket.request.session.userId;
+
+    usersSockets[userId] = socket.userId;
     if (!userId) {
         return socket.disconnect();
     }
@@ -330,9 +333,16 @@ io.on("connection", async (socket) => {
     //     let { rows } = await db.getUserById(userId);
     //     io.emit("chatMessage", rows[0]);
     // });
+
     socket.on("chatMessage", async (data) => {
         await db.addMessageById(userId, data);
         let { rows } = await db.getUserById(userId);
+
+        const recipientSocketId = usersSockets[userId];
+        return io.sockets.sockets[recipientSocketId].emit(
+            "notificationSearch",
+            rows[0].search
+        );
         // io.emit("chatMessage", rows[0]);
         // io.to(userId).emit("chatMessage", rows[0]);
     });

@@ -31,8 +31,8 @@ export default function PrivateChat(props) {
 
     const enterMsg = (e) => {
         if (e.key === "Enter") {
-            socket.emit("chatMessage", chatMessage);
-            // io.to(3).emit("chatMessage", chatMessage);
+            // socket.emit("chatMessage", chatMessage);
+            io.to(3).emit("chatMessage", chatMessage);
 
             chatArea.value = "";
         }

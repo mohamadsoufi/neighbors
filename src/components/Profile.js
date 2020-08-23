@@ -20,7 +20,7 @@ export function Profile(props) {
                 (a, b) => new Date(b.created_at) - new Date(a.created_at)
             )
     );
-    let { id, first, last, email, profile_pic: imgUrl } = user;
+    let { id, first, last, profile_pic: imgUrl } = user;
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getUserProfile());

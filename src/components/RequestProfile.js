@@ -2,25 +2,41 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getOtherUserProfile, getUserRequestProfile } from "../Redux/actions";
+import {
+    getOtherUserProfile,
+    getUserRequestProfile,
+    getUserProfile,
+} from "../Redux/actions";
 
 export default function RequestProfile(props) {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => (state.user ? state.user : {}));
-    const requests = useSelector((state) =>
-        state.UserRequests ? state.UserRequests : []
+    const requests = useSelector(
+        (state) =>
+            state.UserRequests &&
+            state.UserRequests.sort(
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            )
     );
     useEffect(() => {
         const { id } = props.match.params;
 
         dispatch(getOtherUserProfile(id));
         dispatch(getUserRequestProfile(id));
+        dispatch(getUserProfile());
     }, []);
 
     let { first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
 
+    const currentUser = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
+    let currentUserId;
+    if (currentUser) {
+        currentUserId = currentUser.id;
+    }
     const showRequests = (
         <div>
             {requests &&
@@ -57,14 +73,13 @@ export default function RequestProfile(props) {
                                 {vegan && <p>vegan</p>}
                                 {vegetarian && <p>vegetarian</p>}
                                 {glutenFree && <p>glutenFree</p>}
-                                <h4>Contact</h4>
-                                <p> {email}</p>
                             </div>
                         </div>
                     );
                 })}
         </div>
     );
+    const { id } = props.match.params;
 
     return (
         <div>
@@ -86,6 +101,13 @@ export default function RequestProfile(props) {
                     <h2>request :</h2>
                     {showRequests && showRequests}
                 </div>
+                {user && id != currentUserId && (
+                    <div className="chat-icon-container">
+                        <Link to="/chat">
+                            <img className="chat-icon" src="/talk.png" />
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

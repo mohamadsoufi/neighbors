@@ -35,8 +35,7 @@ export default function OfferProfile(props) {
     if (currentUser) {
         currentUserId = currentUser.id;
     }
-    // console.log("currentUserId :", currentUserId);
-    // console.log("offers :", offers);
+
     let { first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
 
@@ -76,6 +75,8 @@ export default function OfferProfile(props) {
     // console.log("id :", id);
     // console.log("userId :", userId);
     const { id } = props.match.params;
+    console.log("currentUserId :", currentUserId);
+    console.log("id :", id);
     return (
         <div>
             <div className="profile-content-container">
@@ -96,8 +97,8 @@ export default function OfferProfile(props) {
                     <h2>Offers List:</h2>
                     {showOffers && showOffers}
                 </div>
-                currentUserId
-                {user && id !== currentUserId && (
+
+                {id != currentUserId && (
                     <div className="chat-icon-container">
                         <Link to="/chat">
                             <img className="chat-icon" src="/talk.png" />

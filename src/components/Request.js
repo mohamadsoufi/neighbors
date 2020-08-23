@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateRequest, getUserProfile } from "../Redux/actions";
+import { updateRequest, getUserProfile, getRequests } from "../Redux/actions";
 import Search from "./Search";
 import Map from "./Map";
 
@@ -22,6 +22,7 @@ export default function Request({ history }) {
         e.preventDefault();
         const newLocation = {};
         dispatch(updateRequest(formValue));
+        dispatch(getRequests());
         newLocation.pathname = "/requests/" + id;
         history.push(newLocation);
     };

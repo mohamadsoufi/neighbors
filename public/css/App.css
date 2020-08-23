@@ -8,7 +8,7 @@ body {
     color: white;
     min-height: 100%;
     background-size: cover;
-    background-image: url(/background1.svg);
+    background-image: url(/background4.svg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -178,6 +178,7 @@ ul {
     border: solid 1px hsla(0, 0%, 0%, 0.25);
     background: hsla(0, 100%, 100%, 0.99);
     font-size: 85%;
+    outline-color: none;
 }
 
 [data-reach-combobox-list] {
@@ -185,24 +186,27 @@ ul {
     margin: 0;
     padding: 0;
     user-select: none;
+    color: black;
+    outline-color: none;
 }
 
 [data-reach-combobox-option] {
     cursor: pointer;
     margin: 0;
     padding: 0.25rem 0.5rem;
+    outline-color: none;
 }
 
 [data-reach-combobox-option][aria-selected="true"] {
-    background: hsl(211, 10%, 95%);
+    background: hsla(220, 12%, 95%, 0.788);
 }
 
 [data-reach-combobox-option]:hover {
-    background: hsl(211, 10%, 92%);
+    background: hsla(210, 10%, 92%, 0.548);
 }
 
 [data-reach-combobox-option][aria-selected="true"]:hover {
-    background: hsl(211, 10%, 90%);
+    background: hsla(180, 1%, 35%, 0.5);
 }
 
 [data-suggested-value] {
@@ -234,6 +238,7 @@ a:hover {
 
 .gm-style-iw-d {
     color: black;
+    font-size: 10px;
 }
 .gm-style-iw-d a {
     color: rgb(87, 84, 84);
