@@ -3,6 +3,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100vh;
+
+    background-image: url(/background1.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    z-index: -2;
 }
 .login-register-container input {
     margin: 10px 20px;
@@ -35,11 +43,15 @@
 .logo-p {
     font-family: "Luckiest Guy", cursive;
     font-size: 30px;
-    color: rgb(68, 39, 39);
+    color: rgb(209, 147, 12);
     margin: 30px;
 }
 
 .log-container a {
+    text-decoration: none;
+    cursor: default;
+}
+.log-container a:hover {
     text-decoration: none;
 }
 
@@ -54,27 +66,6 @@
     object-position: 0 110%;
     z-index: -1;
 } */
-button {
-    color: white;
-    background-color: rgb(5, 5, 173);
-    margin: 0 auto;
-    padding: 0 15px;
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-    border: none;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    height: 28px;
-    cursor: pointer;
-}
-
-button:hover {
-    color: rgba(0, 0, 0, 0.705);
-    background-color: rgba(179, 177, 177, 0.144);
-    border-radius: 20px;
-}
 
 /* @media (max-width: 1024px) {
     header {

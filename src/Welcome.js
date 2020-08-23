@@ -22,7 +22,6 @@ export default class Welcome extends React.Component {
                     </div>
                 </header>
                 <div></div>
-                <div>Hello from welcome page!</div>
 
                 <Route exact path="/login" component={LoginRegister} />
                 <Route exact path="/register" component={LoginRegister} />

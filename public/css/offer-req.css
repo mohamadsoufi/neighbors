@@ -1,10 +1,32 @@
 .form-container {
-    grid-area: 1/6/3/8;
+    grid-area: 1/7/3/8;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.38);
+    margin: 38px;
+}
+.form-container input {
+    margin: 10px 0;
+    width: -webkit-fill-available;
 }
 
+.form-container label {
+    margin: 0 8px;
+}
+.form-container h4 {
+    margin-top: 21px;
+    margin-bottom: 5px;
+}
+
+.form-top-input input {
+    width: 200px;
+}
 #quantity {
     width: 35px;
     margin: 0 5px;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .offers-list,
@@ -22,8 +44,13 @@
 .quantity-container {
     display: flex;
     height: 21px;
+    font-size: 19px;
 }
 
 .quantity-container p {
     margin: 0;
+}
+.form-checkbox {
+    font-size: 19px;
+    font-weight: 200;
 }

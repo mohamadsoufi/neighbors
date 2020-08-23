@@ -7,16 +7,23 @@
 
 .profile-content-container {
     display: grid;
-    grid-template-rows: auto;
+    /* grid-template-rows: repeat(auto, 130px); */
+    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
     grid-template-columns: repeat(12, 130px);
-    grid-template-rows: auto;
     justify-items: center;
     justify-content: space-around;
     width: 100%;
+    height: 100%;
+    background-image: url(/background1.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    z-index: -2;
 }
 
 .profile-username {
-    margin: 28px 10px;
+    margin: 10px 10px;
     align-self: start;
     grid-area: 1/1/2/5;
     justify-self: self-start;
@@ -25,6 +32,7 @@
     font-size: 20px;
     padding-left: 5px;
     border-left: 4px solid rgb(5, 5, 173);
+    margin: 60px 0;
 }
 
 .profile-right-side {
@@ -35,7 +43,7 @@
     flex-direction: column;
     position: absolute;
     top: 3vh;
-    left: 146px;
+    left: 200px;
 }
 
 .profile-pic-small {
@@ -67,7 +75,7 @@
 }
 
 .bio-textarea {
-    padding: 17px;
+    padding: 7px;
     width: fit-content;
     display: block;
     justify-self: center;
@@ -79,7 +87,7 @@
 .bio-text-container {
     justify-self: left;
     grid-area: 2/1/2/3;
-    margin: 5px 10px;
+    margin: 54px 20px;
 }
 
 .bio-text-container button {
@@ -95,7 +103,7 @@
 
 button {
     color: white;
-    background-color: rgb(5, 5, 173);
+    background-color: rgb(236, 168, 19);
     margin: 20px 10px;
     padding: 0 15px;
     text-decoration: none;
@@ -103,15 +111,15 @@ button {
     text-align: center;
     border: none;
     border-radius: 20px;
-    font-size: 15px;
-    font-weight: 700;
-    height: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    height: px;
     cursor: pointer;
 }
 
 button:hover {
     color: rgba(0, 0, 0, 0.705);
-    background-color: rgba(179, 177, 177, 0.383);
+    background-color: rgba(165, 53, 53, 0.678);
     border-radius: 20px;
 }
 
@@ -129,10 +137,10 @@ button:focus {
 }
 
 .profile-left-side {
-    background-color: rgba(7, 7, 7, 0.11);
+    background-color: rgba(7, 7, 7, 0.856);
     grid-area: 1/1 / auto/4;
     align-items: stretch;
-    height: 100vh;
+    min-height: 460px;
     width: 20vw;
     position: absolute;
     left: 0;
@@ -142,22 +150,85 @@ button:focus {
     align-items: flex-start;
 }
 
+.upload-file-container {
+    margin: 10px 10px;
+    height: 40px;
+    width: 240px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    left: 227px;
+    top: 141px;
+}
+.upload-item {
+    flex-grow: 1;
+    font-size: 16px;
+    max-width: 300px;
+    margin-right: 10px;
+    height: 30px;
+    text-align: center;
+}
+
+.upload-file-label {
+    color: white;
+    flex-grow: 1;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.upload-file-label:hover,
+.upload-btn:hover,
+.more-btn:hover {
+    color: black;
+}
+
+.upload-file {
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    width: 150px;
+    height: 33px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.upload-btn {
+    color: white;
+    margin-left: auto;
+    font-size: 14px;
+    height: 26px;
+    cursor: pointer;
+    border: none;
+}
+
+.upload-icon {
+    height: 55px;
+}
+
 .request-btn {
-    grid-area: 1/8/3/10;
+    grid-area: 2/9/3/11;
     background-color: rgba(194, 132, 34, 0.911);
+    opacity: 1;
 }
 
 .offer-btn {
-    grid-area: 1/4/3/8;
+    grid-area: 2/5/3/7;
     background-color: rgba(18, 18, 110, 0.959);
 }
 
 .offer-btn,
 .request-btn {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    margin: 50px 0;
+    margin: 120px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -176,12 +247,12 @@ button:focus {
 }
 
 .request-btn button {
-    background-color: rgba(194, 133, 34, 0);
+    background-color: rgba(0, 0, 0, 0);
     font-size: 20px;
 }
 
 .offer-btn button {
-    background-color: rgba(18, 18, 110, 0);
+    background-color: rgba(0, 0, 0, 0);
     font-size: 20px;
 }
 
@@ -196,11 +267,25 @@ button:focus {
     height: 40px;
 }
 .back-icon-link {
-    grid-area: 1/1;
+    grid-area: 1/5;
+    margin: 30px;
 }
 
 .my-offer-link {
     width: max-content;
     grid-area: 4/1/4/1;
-    margin: 0 10px;
+    margin: 47px 22px;
+    font-size: 19px;
+}
+
+input {
+    margin: 10px 20px;
+    width: 300px;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-left: 15px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.781);
+    -moz-box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
+    box-shadow: 11px 23px 31px -10px rgba(0, 0, 0, 0.82);
 }

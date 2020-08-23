@@ -66,11 +66,17 @@ export default function Request({ history }) {
 
                 <div className="form-container">
                     <h2>Make a Request</h2>
-                    <input type="date" name="date" onChange={handleChange} />
-                    <Map
-                        handleChangeInSearch={handleChangeInSearch}
-                        searchOnly
-                    />
+                    <div className="form-top-input">
+                        <input
+                            type="date"
+                            name="date"
+                            onChange={handleChange}
+                        />
+                        <Map
+                            handleChangeInSearch={handleChangeInSearch}
+                            searchOnly
+                        />
+                    </div>
 
                     <div className="quantity-container">
                         <p>quantity : </p>
@@ -89,7 +95,10 @@ export default function Request({ history }) {
                         </select>
                     </div>
                     <h4>Food dietary</h4>
-                    <form onChange={handleChecklistChange}>
+                    <form
+                        className="form-checkbox"
+                        onChange={handleChecklistChange}
+                    >
                         <div>
                             <input
                                 className="check"

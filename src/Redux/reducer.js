@@ -12,7 +12,6 @@ export default function reducer(state = {}, action) {
             userProfile: action.userProfile,
         };
     }
-
     if (action.type == "GET_USER_OFFER_PROFILE") {
         state = {
             ...state,

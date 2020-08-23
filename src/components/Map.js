@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOffers, getAllRequests } from "../Redux/actions";
+import {
+    getAllOffers,
+    getAllRequests,
+    getOtherUserProfile,
+} from "../Redux/actions";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+
 import {
     GoogleMap,
     useLoadScript,
@@ -13,8 +19,8 @@ import mapStyles from "./mapstyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    width: "500px",
-    height: "500px",
+    width: "900px",
+    height: "600px",
     margin: "0 auto",
 };
 const center = {
@@ -33,6 +39,8 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
     const [markersOffer, setMarkersOffer] = useState([]);
     const [markersReq, setMarkersReq] = useState([]);
     const [markersReqChecked, setMarkersReqChecked] = useState(false);
+    const [selected, setSelected] = useState(null);
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: secrets.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
@@ -46,13 +54,13 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
     );
 
     useEffect(() => {
-        console.log("offers  in use:", offers, isLoaded);
+        // console.log("offers  in use:", offers, isLoaded);
         if (!offers || !isLoaded || searchOnly) return;
         // setMarkersOfferChecked(true);
         offers.forEach(async (offer) => {
             const { lat, lng } = await getLatLngFromAddress(offer.location);
             setMarkersOffer((current) => {
-                if (current.find((cur) => cur.id === offer.id)) {
+                if (current.find((cur) => cur.id === offer.sender_id)) {
                     return current;
                 }
                 return [
@@ -60,7 +68,10 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                     {
                         lat,
                         lng,
-                        id: offer.id,
+                        id: offer.sender_id,
+                        meal: offer.meal,
+                        quantity: offer.quantity,
+                        date: offer.date,
                     },
                 ];
             });
@@ -73,8 +84,9 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
 
         requests.forEach(async (request) => {
             const { lat, lng } = await getLatLngFromAddress(request.location);
+
             setMarkersReq((current) => {
-                if (current.find((cur) => cur.id === request.id)) {
+                if (current.find((cur) => cur.id === request.sender_id)) {
                     return current;
                 }
                 return [
@@ -82,19 +94,30 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                     {
                         lat,
                         lng,
-                        id: request.id,
+                        id: request.sender_id,
+                        date: request.date,
+                        quantity: request.quantity,
+                        req: true,
                     },
                 ];
             });
         });
     }, [requests, isLoaded, searchOnly, markersReqChecked]);
 
+    console.log("selected :", selected);
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log("mounted", isLoaded, offers);
+        // console.log("mounted", isLoaded, offers);
         dispatch(getAllOffers());
         dispatch(getAllRequests());
     }, []);
+
+    useEffect(() => {
+        if (!selected) return;
+        dispatch(getOtherUserProfile(selected.id));
+    }, [selected]);
+    const user = useSelector((state) => (state.user ? state.user : {}));
+    let { id, first, last, email, profile_pic: imgUrl, bio } = user;
 
     const getLatLngFromAddress = async (address) => {
         try {
@@ -106,9 +129,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
         }
     };
 
-    const [selected, setSelected] = useState(null);
     // console.log("markersReq :", markersReq);
-
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
 
@@ -118,10 +139,24 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
         }
     };
 
+    // const checkReqOrOffer = () => {
+    //    if()
+    //         !selected.req && (
+    //             <div>
+    //                 <h2>
+    //                     {first} {last}
+    //                 </h2>
+    //                 <h4>meal: {selected.meal}</h4>
+    //                 <h4>quantity: {selected.quantity}</h4>
+    //                 <Link to={`/offers/${selected.id}`}>see more ...</Link>
+    //             </div>
+    //         );
+
+    // };
+
     return (
         <div>
-            {searchOnly && <Search handleChangeInSearch={handleSearch} />}
-            {!searchOnly && (
+            {searchOnly && (
                 <div className="search-container-in-map">
                     <Search handleChangeInSearch={handleSearch} />
                 </div>
@@ -130,7 +165,7 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
             {!searchOnly && (
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
-                    zoom={10}
+                    zoom={12}
                     center={center}
                     mapStyles={mapStyles}
                     options={options}
@@ -155,8 +190,8 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                                         15
                                     ),
                                     scaledSize: new window.google.maps.Size(
-                                        45,
-                                        45
+                                        36,
+                                        36
                                     ),
                                 }}
                             />
@@ -181,12 +216,13 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                                         15
                                     ),
                                     scaledSize: new window.google.maps.Size(
-                                        45,
-                                        45
+                                        43,
+                                        43
                                     ),
                                 }}
                             />
                         ))}
+
                     {selected ? (
                         <InfoWindow
                             position={{ lat: selected.lat, lng: selected.lng }}
@@ -194,9 +230,30 @@ export default function Map({ searchOnly, handleChangeInSearch }) {
                                 setSelected(null);
                             }}
                         >
-                            <div>
-                                <h2>req/offer</h2>
-                            </div>
+                            {!selected.req ? (
+                                <div>
+                                    <h2>
+                                        {first} {last}
+                                    </h2>
+                                    <h4>offered on: {selected.date}</h4>
+                                    <h4>meal: {selected.meal}</h4>
+                                    <h4>quantity: {selected.quantity}</h4>
+                                    <Link to={`/offers/${id}`}>
+                                        see more ...
+                                    </Link>
+                                </div>
+                            ) : (
+                                <div>
+                                    <h2>
+                                        {first} {last}
+                                    </h2>
+                                    <h4>Requested on: {selected.date}</h4>
+                                    <h4>quantity: {selected.quantity}</h4>
+                                    <Link to={`/requests/${id}`}>
+                                        see more ...
+                                    </Link>
+                                </div>
+                            )}
                         </InfoWindow>
                     ) : null}
                 </GoogleMap>

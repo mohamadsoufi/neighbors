@@ -5,17 +5,69 @@ body {
     font-family: "Nunito", sans-serif;
     margin: 0;
     overflow-x: hidden;
+    color: white;
+    min-height: 100%;
+    background-size: cover;
+    background-image: url(/background1.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
 html {
     scroll-behavior: smooth;
+    min-height: 100%;
 }
 
 header {
-    height: 34vh;
+    /* height: 34vh; */
+    height: max-content;
+    overflow: hidden;
+    /* background: url(/header3.jpg) no-repeat bottom; */
+    /* background-size: cover;
+    background-image: url(/background1.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; */
+}
+
+.main-img {
     overflow: hidden;
     background: url(/header3.jpg) no-repeat bottom;
     background-size: cover;
+    width: 100%;
+    height: 166px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip,
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover,
+.tooltiptext {
+    visibility: visible;
 }
 
 .header-nav-container {
@@ -35,14 +87,13 @@ header {
 }
 
 .header-right a {
-    color: black;
     font-size: 18px;
     font-weight: 900;
     text-decoration: none;
 }
 
 .header-right a:hover {
-    color: rgba(22, 18, 18, 0.329);
+    color: rgba(184, 9, 9, 0.692);
     text-decoration: underline;
 }
 
@@ -58,14 +109,14 @@ header {
 }
 .logo h2 {
     margin: 0 30px;
-    color: rgb(0, 0, 0);
+    color: rgb(236, 168, 19);
     letter-spacing: 2.4px;
     font-size: 32px;
 }
 
 .pin-icon {
-    height: 20px;
-    width: 20px;
+    height: 35px;
+    width: 35px;
 }
 
 .profile-pic-header {
@@ -118,67 +169,6 @@ ul {
   width: 30px;
   cursor: pointer;
 } */
-.upload-file-container {
-    margin: 10px 10px;
-    height: 40px;
-    width: 240px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    left: 76px;
-    top: 240px;
-}
-.upload-item {
-    flex-grow: 1;
-    font-size: 16px;
-    max-width: 300px;
-    margin-right: 10px;
-    height: 30px;
-    text-align: center;
-}
-
-.upload-file-label {
-    color: white;
-    flex-grow: 1;
-    cursor: pointer;
-    font-size: 15px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 30px;
-    margin: 0 10px;
-}
-
-.upload-file-label:hover,
-.upload-btn:hover,
-.more-btn:hover {
-    color: black;
-}
-
-.upload-file {
-    position: absolute;
-    opacity: 0;
-    overflow: hidden;
-    width: 150px;
-    height: 33px;
-    cursor: pointer;
-    z-index: 0;
-}
-
-.upload-btn {
-    color: white;
-    margin-left: auto;
-    font-size: 14px;
-    height: 26px;
-    cursor: pointer;
-    border: none;
-}
-
-.upload-icon {
-    height: 55px;
-}
 
 :root {
     --reach-combobox: 1;
@@ -225,9 +215,8 @@ ul {
 .search-container-in-map {
     margin: 0 auto;
     display: flex;
-    justify-content: center;
-    margin: 30px;
-    margin-top: 150px;
+
+    margin: 0;
 }
 
 a {
@@ -235,9 +224,10 @@ a {
     font-size: 18;
     font-weight: 700;
     text-decoration: none;
+    color: white;
 }
 
 a:hover {
     text-decoration: underline;
-    color: rgba(151, 142, 142, 0.678);
+    color: rgba(165, 53, 53, 0.678);
 }

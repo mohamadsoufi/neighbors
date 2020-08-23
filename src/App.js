@@ -42,11 +42,11 @@ export default function App() {
                         </Link>
                     </div>
                     <div className="header-right">
-                        <Link to="/">Profile</Link>
                         <Link to="/map">
                             <img className="pin-icon" src="/pin-icon.png" />
-                            Find Neighbours
                         </Link>
+
+                        <Link to="/">Profile</Link>
                         <a className="logout" href="/logout">
                             Logout
                         </a>
@@ -61,6 +61,7 @@ export default function App() {
                     </div>
                 </div>
             </header>
+            <div className="main-img"></div>
             <Route
                 exact
                 path="/"

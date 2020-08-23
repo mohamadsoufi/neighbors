@@ -68,17 +68,23 @@ export default function Offer({ history }) {
                 </div>
                 <div className="form-container">
                     <h2>Make an Offer</h2>
-                    <input type="date" name="date" onChange={handleChange} />
-                    <input
-                        onChange={handleChange}
-                        type="text"
-                        name="meal"
-                        placeholder="meal name"
-                    />
-                    <Map
-                        handleChangeInSearch={handleChangeInSearch}
-                        searchOnly
-                    />
+                    <div className="form-top-input">
+                        <input
+                            type="date"
+                            name="date"
+                            onChange={handleChange}
+                        />
+                        <input
+                            onChange={handleChange}
+                            type="text"
+                            name="meal"
+                            placeholder="meal name"
+                        />
+                        <Map
+                            handleChangeInSearch={handleChangeInSearch}
+                            searchOnly
+                        />
+                    </div>
 
                     <div className="quantity-container">
                         <p>quantity : </p>
@@ -95,7 +101,10 @@ export default function Offer({ history }) {
                             <option value="7">7</option>
                         </select>
                     </div>
-                    <form onChange={handleChecklistChange}>
+                    <form
+                        className="form-checkbox"
+                        onChange={handleChecklistChange}
+                    >
                         <div>
                             <input
                                 className="check"
