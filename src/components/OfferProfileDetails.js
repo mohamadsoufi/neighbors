@@ -81,8 +81,8 @@ export default function OfferProfileDetails(props) {
                 })}
         </div>
     );
-    console.log("id :", user.id);
-    console.log("userId :", userId);
+    // console.log("id :", user.id);
+    // console.log("userId :", userId);
 
     const makeReq = () => {
         console.log("reqqqqq");

@@ -14,6 +14,9 @@ const s3 = require("./s3");
 const { sendEmail } = require("./ses");
 // let csurf = require("csurf");
 
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+
 const { hash, compare } = require("./bc");
 
 const cookieSession = require("cookie-session");
@@ -24,6 +27,14 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+
+//socket setup
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+app.use(cookieSessionMiddleware);
 
 app.use(bodyParser.json());
 
@@ -298,6 +309,38 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("I'm listening.");
+});
+
+//socket routes
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+io.on("connection", async (socket) => {
+    const userId = socket.request.session.userId;
+    if (!userId) {
+        return socket.disconnect();
+    }
+    console.log("userId :", userId);
+
+    // socket.on("chatMessage", async (data) => {
+    //     await db.addMessageById(userId, data);
+    //     let { rows } = await db.getUserById(userId);
+    //     io.emit("chatMessage", rows[0]);
+    // });
+    socket.on("chatMessage", async (data) => {
+        await db.addMessageById(userId, data);
+        let { rows } = await db.getUserById(userId);
+        // io.emit("chatMessage", rows[0]);
+        // io.to(userId).emit("chatMessage", rows[0]);
+    });
+    try {
+        let { rows } = await db.getMessages();
+        rows.unshift({ userId });
+        socket.emit("chatMessages", rows);
+    } catch (error) {
+        console.log("error in socket :", error);
+    }
 });

@@ -81,5 +81,20 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "CHAT_MESSAGE") {
+        state = {
+            ...state,
+            chatMessages: [...state.chatMessages, action.chatMessage],
+        };
+    }
+
+    if (action.type == "CHAT_MESSAGES") {
+        state = {
+            ...state,
+            chatMessages: action.chatMessages,
+            id: action.id,
+        };
+    }
+
     return state;
 }

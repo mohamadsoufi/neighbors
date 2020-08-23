@@ -161,3 +161,19 @@ export async function getUsersLocation() {
         console.log("err in getUsersLocation action :", err);
     }
 }
+
+export async function chatMessage(chatMessage) {
+    return {
+        type: "CHAT_MESSAGE",
+        chatMessage,
+    };
+}
+export async function chatMessages(msgs) {
+    let id = msgs.slice(0, 1);
+    let chatMessages = msgs.slice(1, 10);
+    return {
+        type: "CHAT_MESSAGES",
+        chatMessages,
+        id,
+    };
+}

@@ -6,6 +6,7 @@ import {
     getOtherUserProfile,
     getOffers,
     getUserOfferProfile,
+    getUserProfile,
 } from "../Redux/actions";
 
 export default function OfferProfile(props) {
@@ -16,6 +17,7 @@ export default function OfferProfile(props) {
         dispatch(getOtherUserProfile(id));
         dispatch(getUserOfferProfile(id));
         // dispatch(getOffers());
+        dispatch(getUserProfile());
     }, []);
     const user = useSelector((state) => (state.user ? state.user : {}));
     const offers = useSelector(
@@ -25,7 +27,16 @@ export default function OfferProfile(props) {
                 (a, b) => new Date(b.created_at) - new Date(a.created_at)
             )
     );
-
+    //to know if it's the same user
+    const currentUser = useSelector((state) =>
+        state.userProfile ? state.userProfile : {}
+    );
+    let currentUserId;
+    if (currentUser) {
+        currentUserId = currentUser.id;
+    }
+    // console.log("currentUserId :", currentUserId);
+    // console.log("offers :", offers);
     let { first, last, email, profile_pic: imgUrl, bio } = user;
     imgUrl = imgUrl || "../user.png";
 
@@ -62,7 +73,9 @@ export default function OfferProfile(props) {
                 })}
         </div>
     );
-
+    // console.log("id :", id);
+    // console.log("userId :", userId);
+    const { id } = props.match.params;
     return (
         <div>
             <div className="profile-content-container">
@@ -83,6 +96,14 @@ export default function OfferProfile(props) {
                     <h2>Offers List:</h2>
                     {showOffers && showOffers}
                 </div>
+                currentUserId
+                {user && id !== currentUserId && (
+                    <div className="chat-icon-container">
+                        <Link to="/chat">
+                            <img className="chat-icon" src="/talk.png" />
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

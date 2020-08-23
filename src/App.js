@@ -10,6 +10,7 @@ import OfferProfile from "./components/OfferProfile";
 import RequestProfile from "./components/RequestProfile";
 import Map from "./components/Map";
 import OfferProfileDetails from "./components/OfferProfileDetails";
+import PrivateChat from "./components/PrivateChat";
 
 export default function App() {
     const [bioTrack, setBioTracker] = useState();
@@ -83,6 +84,7 @@ export default function App() {
             <Route path="/offers/:id" component={OfferProfile} />
             <Route path="/offer-detail/:id" component={OfferProfileDetails} />
             <Route exact path="/map" render={() => <Map />} />
+            <Route path="/chat/" component={PrivateChat} />
         </BrowserRouter>
     );
 }

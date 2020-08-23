@@ -37,6 +37,8 @@
 
 .offer,
 .request {
+    font-weight: 900;
+    font-size: 20px;
     margin: 25px 0;
     border-bottom: gray 1px solid;
 }

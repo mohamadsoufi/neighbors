@@ -231,3 +231,10 @@ a:hover {
     text-decoration: underline;
     color: rgba(165, 53, 53, 0.678);
 }
+
+.gm-style-iw-d {
+    color: black;
+}
+.gm-style-iw-d a {
+    color: rgb(87, 84, 84);
+}

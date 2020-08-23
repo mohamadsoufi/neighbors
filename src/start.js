@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./Redux/reducer";
+import { init } from "./components/socket";
 
 import Welcome from "./Welcome.js";
 import App from "./App.js";
@@ -23,6 +24,7 @@ if (isLoggedIn) {
             <App />
         </Provider>
     );
+    init(store);
 } else {
     elem = <Welcome />;
 }
