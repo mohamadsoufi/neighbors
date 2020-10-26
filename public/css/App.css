@@ -1,0 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+
+body {
+    font-family: "Nunito", sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    color: white;
+    min-height: 100%;
+    background-size: cover;
+    background-image: url(/background4.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+html {
+    scroll-behavior: smooth;
+    min-height: 100%;
+}
+
+header {
+    /* height: 34vh; */
+    height: max-content;
+    overflow: hidden;
+    /* background: url(/header3.jpg) no-repeat bottom; */
+    /* background-size: cover;
+    background-image: url(/background1.svg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; */
+}
+
+.main-img {
+    overflow: hidden;
+    background: url(/header3.jpg) no-repeat bottom;
+    background-size: cover;
+    width: 100%;
+    height: 166px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip,
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover,
+.tooltiptext {
+    visibility: visible;
+}
+
+.header-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    justify-content: space-evenly;
+    width: 39vw;
+    margin: 10px;
+    height: 54px;
+    align-items: center;
+}
+
+.header-right a {
+    font-size: 18px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.header-right a:hover {
+    color: rgba(184, 9, 9, 0.692);
+    text-decoration: underline;
+}
+
+.logo {
+    font-family: "Luckiest Guy";
+    font-style: normal;
+    font-weight: 400;
+    margin: 10px 30px;
+    text-decoration: none;
+}
+.logo:hover {
+    text-decoration: none;
+}
+.logo h2 {
+    margin: 0 30px;
+    color: rgb(236, 168, 19);
+    letter-spacing: 2.4px;
+    font-size: 32px;
+}
+
+.pin-icon {
+    height: 35px;
+    width: 35px;
+}
+
+.profile-pic-header {
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.3);
+    background-color: rgba(49, 49, 200, 0.527);
+}
+.search {
+    z-index: 10;
+    cursor: text;
+    list-style-type: none;
+}
+ul {
+    list-style-type: none;
+    background-color: aliceblue;
+    position: absolute;
+}
+.search input {
+    cursor: text;
+}
+/* 
+.locate {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+.locate img {
+  width: 30px;
+  cursor: pointer;
+} */
+
+:root {
+    --reach-combobox: 1;
+}
+
+[data-reach-combobox-popover] {
+    border: solid 1px hsla(0, 0%, 0%, 0.25);
+    background: hsla(0, 100%, 100%, 0.99);
+    font-size: 85%;
+    outline-color: none;
+}
+
+[data-reach-combobox-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    color: black;
+    outline-color: none;
+}
+
+[data-reach-combobox-option] {
+    cursor: pointer;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    outline-color: none;
+}
+
+[data-reach-combobox-option][aria-selected="true"] {
+    background: hsla(220, 12%, 95%, 0.788);
+}
+
+[data-reach-combobox-option]:hover {
+    background: hsla(210, 10%, 92%, 0.548);
+}
+
+[data-reach-combobox-option][aria-selected="true"]:hover {
+    background: hsla(180, 1%, 35%, 0.5);
+}
+
+[data-suggested-value] {
+    font-weight: bold;
+}
+
+.map-container {
+    margin: 0 auto;
+}
+.search-container-in-map {
+    margin: 0 auto;
+    display: flex;
+
+    margin: 0;
+}
+
+a {
+    height: 30px;
+    font-size: 18;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgba(165, 53, 53, 0.678);
+}
+
+.gm-style-iw-d {
+    color: black;
+    font-size: 10px;
+}
+.gm-style-iw-d a {
+    color: rgb(87, 84, 84);
+}

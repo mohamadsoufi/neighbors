@@ -1,0 +1,69 @@
+.form-container {
+    grid-area: 1/7/3/8;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.9);
+    margin: 38px;
+    padding: 20px;
+    box-shadow: -1px 6px 13px 4px rgba(245, 233, 245, 0.2);
+    border-radius: 8px;
+}
+.form-container input {
+    margin: 10px 0;
+    width: -webkit-fill-available;
+}
+
+.form-container label {
+    margin: 0 8px;
+}
+.form-container h4 {
+    margin-top: 21px;
+    margin-bottom: 5px;
+}
+
+.form-top-input input {
+    width: 200px;
+}
+#quantity {
+    width: 35px;
+    margin: 0 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.offers-list,
+.requests-list {
+    width: 260px;
+    grid-area: 1/7 / auto/8;
+    margin: 30px;
+    box-shadow: -1px 6px 13px 4px rgba(245, 233, 245, 0.2);
+    background: black;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.offer,
+.request {
+    font-weight: 900;
+    font-size: 15px;
+    margin: 25px 0;
+    border-bottom: gray 1px solid;
+}
+
+.quantity-container {
+    display: flex;
+    height: 21px;
+    font-size: 19px;
+    margin: 12px 0;
+    padding-bottom: 10px;
+}
+
+.quantity-container p {
+    margin: 0;
+}
+.form-checkbox {
+    font-size: 19px;
+    font-weight: 200;
+}
