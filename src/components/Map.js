@@ -19,8 +19,8 @@ import mapStyles from "./mapstyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    width: "800px",
-    height: "360px",
+    width: "900px",
+    height: "460px",
     margin: "0 auto",
 };
 const center = {

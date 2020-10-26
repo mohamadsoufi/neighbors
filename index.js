@@ -101,13 +101,10 @@ app.get("/welcome", (req, res) => {
 app.post("/register", (req, res) => {
     if (Object.keys(req.body).length !== 0) {
         let { first, last, email, pw } = req.body;
-        console.log("password :", pw);
         hash(pw)
             .then((hashedPw) => {
-                console.log("hashedPw :", hashedPw);
                 db.addUserInfo(first, last, email, hashedPw)
                     .then((results) => {
-                        console.log("results :", results);
                         let id = results.rows[0].id;
                         req.session.userId = id;
                         res.json({ success: true });
@@ -178,7 +175,6 @@ app.get("/api/offers/:id", (req, res) => {
 });
 
 app.get("/api/requests/:id", (req, res) => {
-    console.log("req.params.id :", req.params.id);
     db.getUserRequestProfile(req.params.id).then(({ rows }) => {
         res.json(rows);
     });
@@ -277,7 +273,6 @@ app.post("/update-request", (req, res) => {
         glutenFree,
     ])
         .then(({ rows }) => {
-            console.log("rows in post req :", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -326,7 +321,6 @@ io.on("connection", async (socket) => {
     if (!userId) {
         return socket.disconnect();
     }
-    console.log("userId :", userId);
 
     // socket.on("chatMessage", async (data) => {
     //     await db.addMessageById(userId, data);
